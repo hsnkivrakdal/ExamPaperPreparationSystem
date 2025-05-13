@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>QuestionType - Index</title>
+    <!-- DataTables CSS -->
+    <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+    <!-- jQuery and DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <h1 class="h3 mb-2 text-gray-800">Question Types</h1>
+        <a class="btn btn-primary mb-3" th:href="@{/questiontypes/create}">Create New Question Type</a>
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="coursesTable" class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>QuestionType Id</th>
+                            <th>QuestionType Definition</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="qt : ${questionTypes}">
+                            <td th:text="${qt.id}"></td>
+                            <td th:text="${qt.questionTypeDefinition}"></td>
+                            <td>
+                                <a class="btn btn-warning btn-sm" th:href="@{'/questiontypes/edit/' + ${qt.id}}">Edit</a>
+                                <a class="btn btn-danger btn-sm" th:href="@{'/questiontypes/delete/' + ${qt.id}}">Delete</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#coursesTable').DataTable();
+        });
+    </script>
+</section>
+</body>
+</html>
