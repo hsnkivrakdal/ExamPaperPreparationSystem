@@ -12,4 +12,8 @@ public class HomeController {
     public String homepage(Model model) {
         return "home/index";
     }
+    @GetMapping("/layout")
+    public String layoutpage(Model model) {
+        return "layout";
+    }
 }
