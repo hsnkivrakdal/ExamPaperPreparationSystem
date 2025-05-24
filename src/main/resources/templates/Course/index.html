@@ -1,25 +1,35 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <title>Courses</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layout :: layout (~{::body})">
 <body>
-<h1>Courses</h1>
-<a th:href="@{/courses/create}">+ Add New Course</a>
-<table border="1">
-  <tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Actions</th>
-  </tr>
-  <tr th:each="course : ${courses}">
-    <td th:text="${course.id}"></td>
-    <td th:text="${course.name}"></td>
-    <td>
-      <a th:href="@{'/courses/edit/' + ${course.id}}">Edit</a> |
-      <a th:href="@{'/courses/delete/' + ${course.id}}">Delete</a>
-    </td>
-  </tr>
-</table>
+<div class="container-fluid">
+  <h1 class="h3 mb-2 text-gray-800">Courses</h1>
+  <a th:href="@{/courses/create}" class="btn btn-primary mb-3">+ Add New Course</a>
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Course Name</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="course : ${courses}">
+            <td th:text="${course.id}"></td>
+            <td th:text="${course.name}"></td>
+            <td>
+              <a th:href="@{/courses/edit/{id}(id=${course.id})}" class="btn btn-warning btn-sm">Edit</a>
+              <a th:href="@{/courses/delete/{id}(id=${course.id})}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
+

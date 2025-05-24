@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layout :: layout">
 <head>
   <title>Delete Academic Term</title>
 </head>
 <body>
-<h1>Are you sure you want to delete this academic term?</h1>
-<p><strong>ID:</strong> <span th:text="${academicterm.id}"></span></p>
-<p><strong>Name:</strong> <span th:text="${academicterm.name}"></span></p>
-
-<form th:action="@{'/academicterms/delete/' + ${academicterm.id}}" method="post">
-  <button type="submit">Yes, Delete</button>
-  <a th:href="@{/academicterms/list}">Cancel</a>
-</form>
+<div class="container-fluid">
+  <h1 class="h3 mb-4 text-gray-800">Delete Academic Term</h1>
+  <div class="alert alert-warning">
+    Are you sure you want to delete the term: <strong th:text="${academicterm.name}"></strong>?
+  </div>
+  <form th:action="@{/academicterms/delete/{id}(id=${academicterm.id})}" method="post">
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a th:href="@{/academicterms/list}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
 </body>
 </html>
