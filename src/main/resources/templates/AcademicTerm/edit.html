@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Edit Academic Term</title>
+</head>
+<body>
+<h1>Edit Academic Term</h1>
+<form th:action="@{'/academicterms/edit/' + ${academicterm.id}}" th:object="${academicterm}" method="post">
+  <label>Name:</label>
+  <input type="text" th:field="*{name}" required />
+  <br><br>
+  <button type="submit">Update</button>
+  <a th:href="@{/academicterms/list}">Cancel</a>
+</form>
+</body>
+</html>
