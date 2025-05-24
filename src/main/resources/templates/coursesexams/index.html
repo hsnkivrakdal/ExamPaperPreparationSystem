@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<head>
+  <title>Courses Exams</title>
+</head>
+
+<body>
+<section layout:fragment="content">
+  <div class="container-fluid">
+    <h2 class="h3 mb-4 text-gray-800">Courses Exams</h2>
+    <a class="btn btn-success mb-3" th:href="@{/courses-exams/create}">Create New</a>
+
+    <div class="card shadow mb-4">
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Capacity</th>
+            <th>Section</th>
+            <th>Course</th>
+            <th>Exam Type</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="exam : ${coursesexams}">
+            <td th:text="${exam.courseExamTitle}">Course Exam Title</td>
+            <td th:text="${#dates.format(exam.courseExamDate, 'yyyy-MM-dd HH:mm')}">Date</td>
+            <td th:text="${exam.courseExamCapacity}">Capacity</td>
+            <td th:text="${exam.courseExamSection}">Section</td>
+            <td th:text="${exam.course.courseTitle}">Course Title</td>
+            <td th:text="${exam.examType.examTypeTitle}">Exam Type</td>
+            <td>
+              <a th:href="@{'/courses-exams/edit/' + ${exam.id}}" class="btn btn-warning btn-sm">Edit</a>
+              <a th:href="@{'/courses-exams/delete/' + ${exam.id}}" class="btn btn-danger btn-sm"
+                 onclick="return confirm('Are you sure?')">Delete</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+
+</html>

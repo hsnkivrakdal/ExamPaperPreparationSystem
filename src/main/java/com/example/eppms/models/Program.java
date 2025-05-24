@@ -31,4 +31,8 @@ public class Program {
     @OneToMany(mappedBy = "program")
     private Set<Cours> courses = new LinkedHashSet<>();
 
+    @Override
+    public String toString() {
+        return programName;
+    }
 }

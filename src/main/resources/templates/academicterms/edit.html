@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>Edit Academic Term</title>
+</head>
+<body>
+<section layout:fragment="content">
+  <div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Edit Academic Term</h1>
+
+    <form th:action="@{/academicterms/edit/{id}(id=${academicterm.id})}" th:object="${academicterm}" method="post">
+      <div class="card shadow mb-4">
+        <div class="card-body">
+          <div class="form-group">
+            <label for="termTitle">Term Title</label>
+            <input type="text" th:field="*{termTitle}" class="form-control" id="termTitle" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Update</button>
+          <a th:href="@{/academicterms/list}" class="btn btn-secondary">Cancel</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+</body>
+</html>

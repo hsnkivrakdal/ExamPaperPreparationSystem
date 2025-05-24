@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="layout :: layout">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
     <title>Academic Terms</title>
 </head>
 <body>
+<section layout:fragment="content">
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800">Academic Terms</h1>
     <a th:href="@{/academicterms/create}" class="btn btn-primary mb-3">+ Add New Term</a>
@@ -14,18 +17,14 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
+                        <th>Term Title</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="term : ${academicterms}">
                         <td th:text="${term.id}"></td>
-                        <td th:text="${term.name}"></td>
-                        <td th:text="${term.startDate}"></td>
-                        <td th:text="${term.endDate}"></td>
+                        <td th:text="${term.termTitle}"></td>
                         <td>
                             <a th:href="@{/academicterms/edit/{id}(id=${term.id})}" class="btn btn-sm btn-warning">Edit</a>
                             <a th:href="@{/academicterms/delete/{id}(id=${term.id})}" class="btn btn-sm btn-danger">Delete</a>
@@ -37,5 +36,11 @@
         </div>
     </div>
 </div>
+    <script>
+        $(document).ready(function () {
+            $('#coursesTable').DataTable();
+        });
+    </script>
+</section>
 </body>
 </html>

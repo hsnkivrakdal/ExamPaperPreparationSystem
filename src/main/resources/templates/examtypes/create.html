@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <h1 class="h3 mb-4 text-gray-800">Create Exam Type</h1>
+        <form th:action="@{/exam-types/create}" th:object="${examtype}" method="post">
+            <div class="form-group">
+                <label for="examTypeTitle">Title</label>
+                <input type="text" class="form-control" id="examTypeTitle" th:field="*{examTypeTitle}" placeholder="Enter title">
+            </div>
+            <button type="submit" class="btn btn-success">Save</button>
+            <a th:href="@{/exam-types/list}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</section>
 </html>

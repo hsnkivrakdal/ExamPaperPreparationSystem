@@ -1,10 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 
+<head>
+    <title>Edit Exam Type</title>
+</head>
+
+<body>
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <h1 class="h3 mb-4 text-gray-800">Edit Exam Type</h1>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <form th:action="@{/exam-types/edit/{id}(id=${examtype.id})}" th:object="${examtype}" method="post">
+                    <div class="form-group">
+                        <label for="examTypeTitle">Exam Type Title</label>
+                        <input type="text" id="examTypeTitle" class="form-control"
+                               th:field="*{examTypeTitle}" placeholder="Enter exam type title" required />
+                        <div class="text-danger" th:if="${#fields.hasErrors('examTypeTitle')}" th:errors="*{examTypeTitle}"></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mt-2">Save</button>
+                    <a th:href="@{/exam-types/list}" class="btn btn-secondary mt-2">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
 </body>
+
 </html>
