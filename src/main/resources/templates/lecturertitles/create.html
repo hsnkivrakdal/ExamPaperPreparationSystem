@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Create Lecturer Title</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <h1 class="h3 mb-2 text-gray-800">Create New Lecturer Title</h1>
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <form th:action="@{/lecturertitles/create}" th:object="${lecturertitle}" method="post">
+                    <div class="form-group">
+                        <label for="titleDefinition">Title Definition</label>
+                        <input type="text" class="form-control" id="titleDefinition"
+                               th:field="*{titleDefinition}" placeholder="Enter title definition" required />
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <a th:href="@{/lecturertitles/list}" class="btn btn-warning">Cancel</a>
+                </form>
+            </div>
+            <div class="card-footer">
+                <a th:href="@{/lecturertitles/list}" class="btn btn-link">Back to List</a>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

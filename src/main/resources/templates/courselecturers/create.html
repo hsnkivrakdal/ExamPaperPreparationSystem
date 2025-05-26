@@ -1,10 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Create Course Lecturer</title>
+
+    <!-- DataTables CSS -->
+    <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+    <!-- jQuery and DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
 </head>
 <body>
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <h1 class="h3 mb-2 text-gray-800">Create New Course Lecturer</h1>
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <form th:action="@{/courselecturers/create}" th:object="${courselecturer}" method="post">
+                    <div class="form-group">
+                        <label for="lecturer">Lecturer</label>
+                        <select class="form-control" id="lecturer" th:field="*{lecturer.id}" required>
+                            <option value="">Select Lecturer...</option>
+                            <option th:each="lecturer : ${lecturers}"
+                                    th:value="${lecturer.id}"
+                                    th:text="${lecturer.lecturerFirstName + ' ' + lecturer.lecturerLastName}">
+                            </option>
+                        </select>
+                    </div>
 
+                    <div class="form-group">
+                        <label for="term">Term</label>
+                        <select class="form-control" id="term" th:field="*{term.id}" required>
+                            <option value=""> Select term...</option>
+                            <option th:each="term : ${terms}"
+                                    th:value="${term.id}"
+                                    th:text="${term.termName}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <a th:href="@{/courselecturers/list}" class="btn btn-warning">Cancel</a>
+                </form>
+            </div>
+
+            <!-- Footer Link -->
+            <div class="card-footer">
+                <a th:href="@{/courselecturers/list}" class="btn btn-link">Back to List</a>
+            </div>
+        </div>
+    </div>
+</section>
 </body>
 </html>

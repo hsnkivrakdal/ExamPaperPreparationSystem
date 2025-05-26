@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Delete Question Type</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <h1 class="h3 mb-4 text-gray-800">Delete Question Type</h1>
+        <div class="alert alert-warning">
+            Are you sure you want to delete the question type:
+            <strong th:text="${questiontype.questionTypeDefinition}"></strong>?
+        </div>
+        <form th:action="@{/questiontypes/delete/{id}(id=${questiontype.id})}" method="post">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a th:href="@{/questiontypes/list}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</section>
+</body>
+</html>

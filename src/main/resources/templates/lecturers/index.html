@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Lecturers - Index</title>
+
+    <!-- DataTables CSS -->
+    <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+    <!-- jQuery and DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <h1 class="h3 mb-2 text-gray-800">Lecturers</h1>
+        <a class="btn btn-success mb-3" th:href="@{/lecturers/create}">Create New Lecturer</a>
+
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="lecturersTable" class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Lecturer Id</th>
+                            <th>Lecturer First Name</th>
+                            <th>Lecturer Last Name</th>
+                            <th>Lecturer Phone</th>
+                            <th>Title</th>
+                            <th>Department</th>
+                            <th>User</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="lecturer : ${lecturers}">
+                            <td th:text="${lecturer.id}"></td>
+                            <td th:text="${lecturer.lecturerFirstName}"></td>
+                            <td th:text="${lecturer.lecturerLastName}"></td>
+                            <td th:text="${lecturer.lecturerPhoneNumber}"></td>
+                            <td th:text="${lecturer.title.titleDefinition}"></td>
+                            <td th:text="${lecturer.department.departmentName}"></td>
+                            <td th:text="${lecturer.user.username}"></td>
+                            <td>
+                                <a class="btn btn-warning btn-sm" th:href="@{'/lecturers/edit/' + ${lecturer.id}}">Edit</a>
+                                <a class="btn btn-danger btn-sm" th:href="@{'/lecturers/delete/' + ${lecturer.id}}">Delete</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#lecturersTable').DataTable();
+        });
+    </script>
+</section>
+</body>
+</html>

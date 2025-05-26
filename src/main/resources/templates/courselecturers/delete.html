@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Delete Course Lecturer</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <h1 class="h3 mb-4 text-gray-800">Delete Course Lecturer</h1>
+        <div class="alert alert-warning">
+            Are you sure you want to delete the assignment of:
+            <strong th:text="${courselecturer.lecturer.lecturerFirstName + ' ' + courselecturer.lecturer.lecturerLastName}"></strong>
+            from course
+            <strong th:text="${courselecturer.course.courseName}"></strong>?
+        </div>
+        <form th:action="@{/courselecturers/delete/{id}(id=${courselecturer.id})}" method="post">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a th:href="@{/courselecturers/list}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</section>
+</body>
+</html>

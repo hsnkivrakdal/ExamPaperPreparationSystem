@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layout :: layout">
+<head>
+    <title>Delete Lecturer Title</title>
+</head>
+<body>
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Delete Lecturer Title</h1>
+    <div class="alert alert-warning">
+        Are you sure you want to delete the title:
+        <strong th:text="${lecturertitle.titleDefinition}"></strong>?
+    </div>
+    <form th:action="@{/lecturertitles/delete/{id}(id=${lecturertitle.id})}" method="post">
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a th:href="@{/lecturertitles/list}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+</body>
+</html>

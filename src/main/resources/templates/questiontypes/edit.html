@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Edit Question Type</title>
+
+    <!-- DataTables CSS (stil uyumu için) -->
+    <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+    <!-- jQuery and DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <h1 class="h3 mb-2 text-gray-800">Edit Question Type</h1>
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <form th:action="@{/questiontypes/update}" th:object="${questiontype}" method="post">
+                    <input type="hidden" th:field="*{id}" />
+
+                    <div class="form-group">
+                        <label for="questionTypeDefinition">Question Type Definition</label>
+                        <input type="text" class="form-control" id="questionTypeDefinition"
+                               th:field="*{questionTypeDefinition}" placeholder="Enter definition" required />
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Update</button>
+                    <a th:href="@{/questiontypes/list}" class="btn btn-warning">Cancel</a>
+                </form>
+            </div>
+
+            <!-- Footer Link -->
+            <div class="card-footer">
+                <a th:href="@{/questiontypes/list}" class="btn btn-link">Back to List</a>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

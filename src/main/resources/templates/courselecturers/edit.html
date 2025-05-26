@@ -1,10 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Edit Course Lecturer</title>
+    <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
 </head>
 <body>
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <h1 class="h3 mb-2 text-gray-800">Edit Course Lecturer</h1>
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <form th:action="@{/courselecturers/update}" th:object="${courselecturer}" method="post">
+                    <input type="hidden" th:field="*{id}" />
 
+                    <div class="form-group">
+                        <label for="course">Course</label>
+                        <select class="form-control" th:field="*{course}" id="course">
+                            <option th:each="c : ${courses}" th:value="${c.id}" th:text="${c.courseName}"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lecturer">Lecturer</label>
+                        <select class="form-control" th:field="*{lecturer}" id="lecturer">
+                            <option th:each="l : ${lecturers}" th:value="${l.id}" th:text="${l.lecturerFirstName + ' ' + l.lecturerLastName}"></option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Update</button>
+                    <a th:href="@{/courselecturers/list}" class="btn btn-warning">Cancel</a>
+                </form>
+            </div>
+            <div class="card-footer">
+                <a th:href="@{/courselecturers/list}" class="btn btn-link">Back to List</a>
+            </div>
+        </div>
+    </div>
+</section>
 </body>
 </html>

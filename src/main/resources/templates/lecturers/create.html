@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Create Lecturer</title>
+
+    <!-- DataTables CSS -->
+    <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+    <!-- jQuery and DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <h1 class="h3 mb-2 text-gray-800">Create New Lecturer</h1>
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <form th:action="@{/lecturers/create}" th:object="${lecturer}" method="post">
+                    <div class="form-group">
+                        <label for="lecturerFirstName">First Name</label>
+                        <input type="text" class="form-control" id="lecturerFirstName"
+                               th:field="*{lecturerFirstName}" placeholder="Enter first name" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lecturerLastName">Last Name</label>
+                        <input type="text" class="form-control" id="lecturerLastName"
+                               th:field="*{lecturerLastName}" placeholder="Enter last name" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lecturerPhoneNumber">Phone Number</label>
+                        <input type="text" class="form-control" id="lecturerPhoneNumber"
+                               th:field="*{lecturerPhoneNumber}" placeholder="Enter phone number" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <select class="form-control" id="title" th:field="*{title.id}">
+                            <option th:each="t : ${titles}" th:value="${t.id}" th:text="${t.titleDefinition}">Title</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="department">Department</label>
+                        <select class="form-control" id="department" th:field="*{department.id}">
+                            <option th:each="d : ${departments}" th:value="${d.id}" th:text="${d.departmentName}">Department</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user">User</label>
+                        <select class="form-control" id="user" th:field="*{user.id}">
+                            <option th:each="u : ${users}" th:value="${u.id}" th:text="${u.username}">User</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <a th:href="@{/lecturers/list}" class="btn btn-warning">Cancel</a>
+                </form>
+            </div>
+
+            <!-- Footer Link -->
+            <div class="card-footer">
+                <a th:href="@{/lecturers/list}" class="btn btn-link">Back to List</a>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
