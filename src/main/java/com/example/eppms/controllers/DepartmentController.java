@@ -2,6 +2,7 @@ package com.example.eppms.controllers;
 
 import com.example.eppms.models.Department;
 import com.example.eppms.services.DepartmentService;
+import com.example.eppms.services.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,9 @@ public class DepartmentController {
 
     @Autowired
     private DepartmentService service;
+    
+    @Autowired
+    private FacultyService facultyService;
 
     @GetMapping("/list")
     public String getAll(Model model) {
@@ -23,6 +27,7 @@ public class DepartmentController {
     @GetMapping("/create")
     public String getCreatePage(Model model) {
         model.addAttribute("department", new Department());
+        model.addAttribute("faculties", facultyService.getAll());
         return "departments/create";
     }
 
@@ -36,12 +41,12 @@ public class DepartmentController {
     public String getEditPage(@PathVariable Integer id, Model model) {
         Department existing = service.getById(id);
         model.addAttribute("department", existing);
+        model.addAttribute("faculties", facultyService.getAll());
         return "departments/edit";
     }
 
-    @PostMapping("/edit/{id}")
-    public String edit(@PathVariable Integer id, @ModelAttribute Department department) {
-        department.setId(id);
+    @PostMapping("/update")
+    public String update(@ModelAttribute Department department) {
         service.update(department);
         return "redirect:/departments/list";
     }

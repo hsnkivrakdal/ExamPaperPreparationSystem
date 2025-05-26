@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Departments - Index</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <h1 class="h3 mb-2 text-gray-800">Departments</h1>
+        <a class="btn btn-primary mb-3" th:href="@{/departments/create}">
+            <i class="fas fa-plus"></i> Create New Department
+        </a>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Departments List</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="departmentsTable" class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Department Name</th>
+                            <th>Faculty</th>
+                            <th>University</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="department : ${departments}">
+                            <td th:text="${department.id}"></td>
+                            <td th:text="${department.departmentName}"></td>
+                            <td th:text="${department.faculty.facultyName}"></td>
+                            <td th:text="${department.faculty.university.universityName}"></td>
+                            <td>
+                                <a class="btn btn-info btn-sm" th:href="@{'/departments/view/' + ${department.id}}">
+                                    <i class="fas fa-eye"></i> View
+                                </a>
+                                <a class="btn btn-warning btn-sm" th:href="@{'/departments/edit/' + ${department.id}}">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <a class="btn btn-danger btn-sm" th:href="@{'/departments/delete/' + ${department.id}}">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#departmentsTable').DataTable({
+                "pageLength": 25,
+                "order": [[ 1, "asc" ]],
+                "language": {
+                    "search": "Search Departments:",
+                    "lengthMenu": "Show _MENU_ departments per page",
+                    "info": "Showing _START_ to _END_ of _TOTAL_ departments"
+                }
+            });
+        });
+    </script>
+</section>
+</body>
+</html> 

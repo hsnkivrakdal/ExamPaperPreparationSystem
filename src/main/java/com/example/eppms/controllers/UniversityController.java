@@ -39,9 +39,8 @@ public class UniversityController {
         return "universities/edit";
     }
 
-    @PostMapping("/edit/{id}")
-    public String edit(@PathVariable Integer id, @ModelAttribute University university) {
-        university.setId(id);
+    @PostMapping("/update")
+    public String update(@ModelAttribute University university) {
         service.update(university);
         return "redirect:/universities/list";
     }
