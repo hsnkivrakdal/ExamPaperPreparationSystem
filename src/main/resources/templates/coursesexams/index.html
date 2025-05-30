@@ -30,7 +30,7 @@
           <tbody>
           <tr th:each="exam : ${coursesexams}">
             <td th:text="${exam.courseExamTitle}">Course Exam Title</td>
-            <td th:text="${#dates.format(exam.courseExamDate, 'yyyy-MM-dd HH:mm')}">Date</td>
+            <td th:text="${#dates.format(exam.courseExamDate, 'yyyy-MM-dd')}">Date</td>
             <td th:text="${exam.courseExamCapacity}">Capacity</td>
             <td th:text="${exam.courseExamSection}">Section</td>
             <td th:text="${exam.course.courseTitle}">Course Title</td>
