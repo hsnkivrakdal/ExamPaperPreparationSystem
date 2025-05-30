@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>Delete Course</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <h1 class="h3 mb-4 text-gray-800">Delete Course</h1>
+  <div class="alert alert-warning">
+    Are you sure you want to delete the course: <strong th:text="${courses.courseTitle}">Course Name</strong>?
+  </div>
+  <form th:action="@{/courses/delete/{id}(id=${courses.id})}" method="post">
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a th:href="@{/courses/list}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+</body>
+</html>

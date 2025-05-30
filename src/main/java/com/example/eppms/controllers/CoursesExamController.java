@@ -1,7 +1,10 @@
 package com.example.eppms.controllers;
 
 import com.example.eppms.models.Coursesexam;
+import com.example.eppms.models.Faculty;
+import com.example.eppms.services.CourseService;
 import com.example.eppms.services.CoursesExamService;
+import com.example.eppms.services.ExamTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,18 +17,25 @@ public class CoursesExamController {
     @Autowired
     private CoursesExamService service;
 
+    @Autowired
+    private CourseService courseService;
+
+    @Autowired
+    private ExamTypeService examTypeService;
+
     @GetMapping("/list")
     public String getAll(Model model) {
         model.addAttribute("coursesexams", service.getAll());
-        return "coursesexams/index"; // templates/coursesexams/index.html
+        return "coursesexams/index";
     }
 
     @GetMapping("/create")
     public String getCreatePage(Model model) {
         model.addAttribute("coursesexam", new Coursesexam());
-        return "coursesexams/create"; // templates/coursesexams/create.html
+        model.addAttribute("coursList", courseService.getAll());
+        model.addAttribute("examtypeList", examTypeService.getAll());
+        return "coursesexams/create";
     }
-
     @PostMapping("/create")
     public String create(@ModelAttribute Coursesexam coursesexam) {
         service.add(coursesexam);
@@ -34,9 +44,10 @@ public class CoursesExamController {
 
     @GetMapping("/edit/{id}")
     public String getEditPage(@PathVariable Integer id, Model model) {
-        Coursesexam existing = service.getById(id);
-        model.addAttribute("coursesexam", existing);
-        return "coursesexams/edit"; // templates/coursesexams/edit.html
+        model.addAttribute("coursesexam", service.getById(id));
+        model.addAttribute("coursList", courseService.getAll());
+        model.addAttribute("examtypeList", examTypeService.getAll());
+        return "coursesexams/edit";
     }
 
     @PostMapping("/edit/{id}")
@@ -48,9 +59,8 @@ public class CoursesExamController {
 
     @GetMapping("/delete/{id}")
     public String getDeletePage(@PathVariable Integer id, Model model) {
-        Coursesexam existing = service.getById(id);
-        model.addAttribute("coursesexam", existing);
-        return "coursesexams/delete"; // templates/coursesexams/delete.html
+        model.addAttribute("coursesexam", service.getById(id));
+        return "coursesexams/delete";
     }
 
     @PostMapping("/delete/{id}")

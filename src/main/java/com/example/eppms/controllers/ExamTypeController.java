@@ -22,42 +22,40 @@ public class ExamTypeController {
 
     @GetMapping("/create")
     public String getCreateExamTypePage(Model model) {
-        model.addAttribute("examtypes", new Examtype());
+        model.addAttribute("examtype", new Examtype());
         return "examtypes/create";
     }
 
     @PostMapping("/create")
-    public String createExamType(@RequestBody Examtype examtype) {
+    public String createExamType(@ModelAttribute Examtype examtype) {
         service.add(examtype);
         return "redirect:/exam-types/list";
     }
 
-    @GetMapping("/edit/{examtypeid}")
-    public String editExamTypePage(@PathVariable Integer examtypeid ,Model model) {
-        Examtype existing = service.getById(examtypeid);
-        model.addAttribute("examtype",existing);
+    @GetMapping("/edit/{id}")
+    public String editExamTypePage(@PathVariable Integer id, Model model) {
+        Examtype existing = service.getById(id);
+        model.addAttribute("examtype", existing);
         return "examtypes/edit";
     }
 
-    @PostMapping("/edit/{examtypeid}")
-    public String editExamType(@PathVariable Integer examtypeid, Examtype examtype) {
-        examtype.setId(examtypeid);
+    @PostMapping("/edit/{id}")
+    public String editExamType(@PathVariable Integer id, @ModelAttribute Examtype examtype) {
+        examtype.setId(id);
         service.update(examtype);
         return "redirect:/exam-types/list";
     }
 
-    @GetMapping("/delete/{examtypeid}")
-    public String deleteExamTypePage(@PathVariable Integer examtypeid, Model model) {
-        Examtype existing = service.getById(examtypeid);
+    @GetMapping("/delete/{id}")
+    public String deleteExamTypePage(@PathVariable Integer id, Model model) {
+        Examtype existing = service.getById(id);
         model.addAttribute("examtype", existing);
         return "examtypes/delete";
     }
 
-    @DeleteMapping("/delete/{examtypeid}")
-    public String deleteExamType(@PathVariable Integer examtypeid, Examtype examtype) {
-        examtype.setId(examtypeid);
-        service.delete(examtype);
+    @PostMapping("/delete/{id}")
+    public String deleteExamType(@PathVariable Integer id) {
+        service.deleteById(id);
         return "redirect:/exam-types/list";
     }
-
 }

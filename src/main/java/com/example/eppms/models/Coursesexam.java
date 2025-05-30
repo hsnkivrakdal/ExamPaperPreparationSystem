@@ -1,12 +1,10 @@
 package com.example.eppms.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.Instant;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -17,16 +15,18 @@ import java.util.Set;
 @Entity
 @Table(name = "coursesexams")
 public class Coursesexam {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CourseExamId", nullable = false)
+    @Column(name = "CourseExamId")
     private Integer id;
 
     @Column(name = "CourseExamTitle", nullable = false, length = 200)
     private String courseExamTitle;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "CourseExamDate", nullable = false)
-    private Instant courseExamDate;
+    private Date courseExamDate;
 
     @Column(name = "CourseExamCapacity", nullable = false)
     private Short courseExamCapacity;

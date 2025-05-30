@@ -40,4 +40,8 @@ public class Cours {
     @OneToMany(mappedBy = "course")
     private Set<Coursesexam> coursesexams = new LinkedHashSet<>();
 
+    @Override
+    public String toString() {
+        return courseTitle;
+    }
 }

@@ -27,4 +27,8 @@ public class Examtype {
     @OneToMany(mappedBy = "examType")
     private Set<Coursesexam> coursesexams = new LinkedHashSet<>();
 
+    @Override
+    public String toString() {
+        return examTypeTitle;
+    }
 }

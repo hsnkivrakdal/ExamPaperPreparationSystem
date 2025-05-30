@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<head><title>Create Course Exam</title></head>
+
+<body>
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <h2 class="h3 mb-4 text-gray-800">Create Course Exam</h2>
+
+        <form th:action="@{/courses-exams/create}" th:object="${coursesexam}" method="post">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input th:field="*{courseExamTitle}" class="form-control" id="title"/>
+            </div>
+
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" th:field="*{courseExamDate}" class="form-control" id="date"/>
+            </div>
+
+            <div class="form-group">
+                <label for="capacity">Capacity</label>
+                <input type="number" th:field="*{courseExamCapacity}" class="form-control" id="capacity"/>
+            </div>
+
+            <div class="form-group">
+                <label for="section">Section</label>
+                <input type="number" id="section" th:field="*{courseExamSection}" class="form-control"/>
+            </div>
+
+            <div class="form-group">
+                <label for="courses">Course</label>
+                <select th:field="*{course}" class="form-control" id="courses">
+                    <option th:each="c : ${coursList}" th:value="${c.id}" th:text="${c.courseTitle}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="examType">Exam Type</label>
+                <select th:field="*{examType}" class="form-control" id="examType" >
+                    <option th:each="e : ${examtypeList}" th:value="${e.id}" th:text="${e.examTypeTitle}"></option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a th:href="@{/courses-exams/list}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</section>
+</body>
+</html>
