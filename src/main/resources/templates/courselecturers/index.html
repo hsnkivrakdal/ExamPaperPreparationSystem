@@ -20,7 +20,6 @@
                             <th>Course Lecturer Id</th>
                             <th>Lecturer Name</th>
                             <th>Term</th>
-                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -28,10 +27,6 @@
                             <td th:text="${courselecturer.id}"></td>
                             <td th:text="${courselecturer.lecturer.lecturerFirstName + ' ' + courselecturer.lecturer.lecturerLastName}"></td>
                             <td th:text="${courselecturer.term.termName}"></td>
-                            <td>
-                                <a class="btn btn-warning btn-sm" th:href="@{/courselecturers/edit/{id}(id=${cl.id})}">Edit</a>
-                                <a class="btn btn-danger btn-sm" th:href="@{/courselecturers/delete/{id}(id=${cl.id})}">Delete</a>
-                            </td>
                         </tr>
                         </tbody>
                     </table>

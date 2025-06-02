@@ -18,17 +18,12 @@
                         <tr>
                             <th>QuestionType Id</th>
                             <th>QuestionType Definition</th>
-                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="qt : ${questionTypes}">
                             <td th:text="${qt.id}"></td>
                             <td th:text="${qt.questionTypeDefinition}"></td>
-                            <td>
-                                <a class="btn btn-warning btn-sm" th:href="@{'/questiontypes/edit/' + ${qt.id}}">Edit</a>
-                                <a class="btn btn-danger btn-sm" th:href="@{'/questiontypes/delete/' + ${qt.id}}">Delete</a>
-                            </td>
                         </tr>
                         </tbody>
                     </table>

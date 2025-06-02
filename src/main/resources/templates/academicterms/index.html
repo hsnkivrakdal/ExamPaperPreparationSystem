@@ -18,17 +18,12 @@
                     <tr>
                         <th>ID</th>
                         <th>Term Title</th>
-                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="term : ${academicterms}">
                         <td th:text="${term.id}"></td>
                         <td th:text="${term.termTitle}"></td>
-                        <td>
-                            <a th:href="@{/academicterms/edit/{id}(id=${term.id})}" class="btn btn-sm btn-warning">Edit</a>
-                            <a th:href="@{/academicterms/delete/{id}(id=${term.id})}" class="btn btn-sm btn-danger">Delete</a>
-                        </td>
                     </tr>
                     </tbody>
                 </table>

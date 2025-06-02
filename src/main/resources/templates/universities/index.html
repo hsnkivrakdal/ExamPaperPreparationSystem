@@ -25,7 +25,6 @@
                             <th>University Name</th>
                             <th>Website</th>
                             <th>Address</th>
-                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -36,17 +35,6 @@
                                 <a th:href="${university.universityWebsite}" target="_blank" th:text="${university.universityWebsite}"></a>
                             </td>
                             <td th:text="${university.universityAddress}"></td>
-                            <td>
-                                <a class="btn btn-info btn-sm" th:href="@{'/universities/view/' + ${university.id}}">
-                                    <i class="fas fa-eye"></i> View
-                                </a>
-                                <a class="btn btn-warning btn-sm" th:href="@{'/universities/edit/' + ${university.id}}">
-                                    <i class="fas fa-edit"></i> Edit
-                                </a>
-                                <a class="btn btn-danger btn-sm" th:href="@{'/universities/delete/' + ${university.id}}">
-                                    <i class="fas fa-trash"></i> Delete
-                                </a>
-                            </td>
                         </tr>
                         </tbody>
                     </table>
