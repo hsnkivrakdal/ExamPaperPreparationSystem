@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Create Exam Question</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <h1 class="h3 mb-2 text-gray-800">Create New Exam Question</h1>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Exam Question Information</h6>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/exam-question/create}" th:object="${examQuestion}" method="post">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="examQuestionDefinition">Question Definition <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="examQuestionDefinition"
+                                       th:field="*{examQuestionDefinition}" placeholder="Enter question text" required />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="questionType">Question Type <span class="text-danger">*</span></label>
+                                <select class="form-control" id="questionType" th:field="*{questionType}" required>
+                                    <option value="" disabled selected>Select question type</option>
+                                    <option th:each="qt : ${questionType}"
+                                            th:value="${qt.id}"
+                                            th:text="${qt.questionTypeDefinition}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="questionPoint">Question Point <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="questionPoint"
+                                       th:field="*{questionPoint}" placeholder="E.g., 10" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> Save Exam Question
+                        </button>
+                        <a th:href="@{/exam-question/list}" class="btn btn-warning">
+                            <i class="fas fa-times"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Footer Link -->
+            <div class="card-footer">
+                <a th:href="@{/exam-question/list}" class="btn btn-link">
+                    <i class="fas fa-arrow-left"></i> Back to Exam Questions List
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

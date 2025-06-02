@@ -16,7 +16,7 @@
 
 <body>
 <section layout:fragment="content">
-    <h1>Welcome to the Exam Paper Preparation System</h1>
+    <h1>Welcome to the Exam Paper Preparation System, Role : <span th:text="${session.userRole}"></span> </h1>
 </section>
 <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
 <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>

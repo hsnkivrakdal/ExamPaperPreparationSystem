@@ -25,16 +25,23 @@
                             <th>University Name</th>
                             <th>Website</th>
                             <th>Address</th>
+                            <td>Actions</td>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="university : ${universities}">
                             <td th:text="${university.id}"></td>
                             <td th:text="${university.universityName}"></td>
-                            <td>
-                                <a th:href="${university.universityWebsite}" target="_blank" th:text="${university.universityWebsite}"></a>
-                            </td>
+                            <td><a th:href="${university.universityWebsite}" target="_blank" th:text="${university.universityWebsite}"></a></td>
                             <td th:text="${university.universityAddress}"></td>
+                            <td>
+                                <a class="btn btn-warning btn-sm" th:href="@{'/universities/edit/' + ${university.id}}">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <a class="btn btn-danger btn-sm" th:href="@{'/universities/delete/' + ${university.id}}">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

@@ -35,9 +35,6 @@
                             <td th:text="${program.department.departmentName}"></td>
                             <td th:text="${program.department.faculty.facultyName}"></td>
                             <td>
-                                <a class="btn btn-info btn-sm" th:href="@{'/programs/view/' + ${program.id}}">
-                                    <i class="fas fa-eye"></i> View
-                                </a>
                                 <a class="btn btn-warning btn-sm" th:href="@{'/programs/edit/' + ${program.id}}">
                                     <i class="fas fa-edit"></i> Edit
                                 </a>
@@ -52,20 +49,19 @@
             </div>
         </div>
     </div>
-
-    <script>
-        $(document).ready(function () {
-            $('#programsTable').DataTable({
-                "pageLength": 25,
-                "order": [[ 1, "asc" ]],
-                "language": {
-                    "search": "Search Programs:",
-                    "lengthMenu": "Show _MENU_ programs per page",
-                    "info": "Showing _START_ to _END_ of _TOTAL_ programs"
-                }
-            });
-        });
-    </script>
 </section>
+<script>
+    $(document).ready(function () {
+        $('#programsTable').DataTable({
+            "pageLength": 25,
+            "order": [[ 1, "asc" ]],
+            "language": {
+                "search": "Search Programs:",
+                "lengthMenu": "Show _MENU_ programs per page",
+                "info": "Showing _START_ to _END_ of _TOTAL_ programs"
+            }
+        });
+    });
+</script>
 </body>
 </html> 
