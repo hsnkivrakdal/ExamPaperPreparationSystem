@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Exam Papers</title>
+    <link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" />
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4">Exam Papers</h2>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Exam Version</th>
+            <th>Exam Time</th>
+            <th>Lecturer</th>
+            <th>Course Exam</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="examPaper : ${examPapers}">
+            <td th:text="${examPaper.id}"></td>
+            <td th:text="${examPaper.examVersion}"></td>
+            <td th:text="${examPaper.examPaperTime}"></td>
+            <td th:text="${examPaper.lecturer.lecturerName}"></td>
+            <td th:text="${examPaper.coursesexam.courseExamTitle}"></td>
+            <td>
+                <a th:href="@{/exam-paper/edit/{id}(id=${examPaper.id})}" class="btn btn-primary btn-sm">Edit</a>
+                <a th:href="@{/exam-paper/delete/{id}(id=${examPaper.id})}" class="btn btn-danger btn-sm">Delete</a>
+                <a th:href="@{/exam-paper/export-pdf/{id}(id=${examPaper.id})}" class="btn btn-success btn-sm">Download PDF</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

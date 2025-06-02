@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Create Exam Paper Question</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <h1 class="h3 mb-2 text-gray-800">Create Exam Paper Question</h1>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Mapping Information</h6>
+            </div>
+
+            <div class="card-body">
+                <form th:action="@{/exam-paper-question/create}" th:object="${examPaperQuestions}" method="post">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="examPaper">Exam Paper <span class="text-danger">*</span></label>
+                                <select class="form-control" id="examPaper" th:field="*{examPaper}" required>
+                                    <option value="" disabled selected>Select Exam Paper</option>
+                                    <option th:each="ep : ${examPapers}"
+                                            th:value="${ep.id}"
+                                            th:text="${ep.courseExam.courseExamTitle +'.V.'+ep.examVersion}"></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="examQuestion">Exam Question <span class="text-danger">*</span></label>
+                                <select class="form-control" id="examQuestion" th:field="*{examQuestion}" required>
+                                    <option value="" disabled selected>Select Exam Question</option>
+                                    <option th:each="q : ${examQuestions}"
+                                            th:value="${q.id}"
+                                            th:text="${q.examQuestionDefinition}"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> Save Mapping
+                        </button>
+                        <a th:href="@{/exam-paper-question/list}" class="btn btn-warning">
+                            <i class="fas fa-times"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card-footer">
+                <a th:href="@{/exam-paper-question/list}" class="btn btn-link">
+                    <i class="fas fa-arrow-left"></i> Back to Mapping List
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

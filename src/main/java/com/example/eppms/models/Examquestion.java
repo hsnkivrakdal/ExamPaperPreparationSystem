@@ -37,4 +37,8 @@ public class Examquestion {
     @OneToMany(mappedBy = "examQuestion")
     private Set<Questionoption> questionoptions = new LinkedHashSet<>();
 
+    @Override
+    public String toString() {
+        return examQuestionDefinition;
+    }
 }

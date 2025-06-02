@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Create Question Option</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <h1 class="h3 mb-2 text-gray-800">Create New Question Option</h1>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Question Option Information</h6>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/question-option/create}" th:object="${questionOptions}" method="post">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="optionText">Option Text <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="optionText"
+                                       th:field="*{questionOptionDefinition}" placeholder="Enter option text" required />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="correct">Is Correct? <span class="text-danger">*</span></label>
+                                <select class="form-control" id="correct" th:field="*{isCorrectAnswer}" required>
+                                    <option value="" disabled selected>Select</option>
+                                    <option th:value="true">Yes</option>
+                                    <option th:value="false">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="examquestionSelect">Related Exam Question <span class="text-danger">*</span></label>
+                                <select id="examquestionSelect"
+                                        class="form-control"
+                                        style="width:100%"
+                                        th:field="*{examQuestion}"
+                                        required>
+                                    <option value="" disabled selected>Select Exam Question</option>
+                                    <option th:each="q : ${questionType}"
+                                            th:value="${q.id}"
+                                            th:text="${q.examQuestionDefinition}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> Save Option
+                        </button>
+                        <a th:href="@{/question-option/list}" class="btn btn-warning">
+                            <i class="fas fa-times"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card-footer">
+                <a th:href="@{/question-option/list}" class="btn btn-link">
+                    <i class="fas fa-arrow-left"></i> Back to Question Options List
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+        console.log('Activating select2...');
+        $('#examquestionSelect').select2({
+            placeholder: 'Type to search questions',
+            allowClear: true,
+            width: 'resolve'
+        });
+    });
+</script>
+</body>
+</html>

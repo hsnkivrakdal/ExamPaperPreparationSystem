@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Step 1 - Exam Paper Info</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <h1 class="h3 mb-4 text-gray-800">Step 1: Create Exam Paper</h1>
+
+        <div class="card shadow mb-4">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold text-primary">Enter Exam Paper Details</h6>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/exam-wizard/step2}" th:object="${examPaper}" method="post">
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="examVersion">Exam Version <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="examVersion"
+                                       th:field="*{examVersion}" placeholder="A, B, C..." required />
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="examPaperTime">Duration (Minutes) <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="examPaperTime"
+                                       th:field="*{examPaperTime}" placeholder="e.g., 90" required />
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="lecturer">Lecturer <span class="text-danger">*</span></label>
+                                <select class="form-control" id="lecturer" th:field="*{lecturer}" required>
+                                    <option value="" disabled selected>Select Lecturer</option>
+                                    <option th:each="lec : ${lecturers}" th:value="${lec.id}" th:text="${lec.lecturerFirstName + ' ' + lec.lecturerLastName}"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="courseExam">Course Exam <span class="text-danger">*</span></label>
+                        <select class="form-control" id="courseExam" th:field="*{courseExam}" required>
+                            <option value="" disabled selected>Select Course Exam</option>
+                            <option th:each="ce : ${coursesExams}" th:value="${ce.id}" th:text="${ce.courseExamTitle}"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-arrow-right"></i> Continue to Question Selection
+                        </button>
+                        <a th:href="@{/exam-paper/list}" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

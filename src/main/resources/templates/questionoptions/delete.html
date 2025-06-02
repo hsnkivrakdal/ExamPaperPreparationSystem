@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Delete Question Option</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <h1 class="h3 mb-4 text-gray-800">Delete Question Option</h1>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 bg-danger">
+                <h6 class="m-0 font-weight-bold text-white">
+                    <i class="fas fa-exclamation-triangle"></i> Confirm Deletion
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-danger">
+                    <h5><i class="fas fa-exclamation-triangle"></i> Warning!</h5>
+                    Are you sure you want to delete the option:
+                    <strong th:text="${questionOptions.questionOptionDefinition}"></strong>?
+                    <br><br>
+                    <small class="text-muted">
+                        <strong>Note:</strong> This action cannot be undone. This option may be linked to an active exam question.
+                    </small>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Option Details:</h6>
+                        <ul class="list-unstyled">
+                            <li><strong>Option Text:</strong> <span th:text="${questionOptions.questionOptionDefinition}"></span></li>
+                            <li><strong>Is Correct:</strong>
+                                <span th:text="${questionOptions.isCorrectAnswer} ? 'Yes' : 'No'"></span>
+                            </li>
+                            <li><strong>Exam Question:</strong>
+                                <span th:text="${questionOptions.examQuestion.examQuestionDefinition}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <form th:action="@{/question-option/delete/{id}(id=${questionOptions.id})}" method="post">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Yes, Delete Option
+                    </button>
+                    <a th:href="@{/question-option/list}" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </form>
+            </div>
+
+            <div class="card-footer">
+                <a th:href="@{/question-option/list}" class="btn btn-link">
+                    <i class="fas fa-arrow-left"></i> Back to Question Options List
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

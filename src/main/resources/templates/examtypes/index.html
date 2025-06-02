@@ -19,17 +19,12 @@
                         <tr>
                             <th>ID</th>
                             <th>Title</th>
-                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="examtype : ${examtypes}">
                             <td th:text="${examtype.id}">1</td>
                             <td th:text="${examtype.examTypeTitle}">Title</td>
-                            <td>
-                                <a th:href="@{/exam-types/edit/{id}(id=${examtype.id})}" class="btn btn-warning btn-sm">Edit</a>
-                                <a th:href="@{/exam-types/delete/{id}(id=${examtype.id})}" class="btn btn-danger btn-sm">Delete</a>
-                            </td>
                         </tr>
                         </tbody>
                     </table>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>Step 3 - Confirm Exam</title>
+</head>
+<body>
+<section layout:fragment="content">
+  <div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Step 3: Review & Confirm</h1>
+
+    <div class="card shadow mb-4">
+      <div class="card-header">
+        <h6 class="m-0 font-weight-bold text-primary">Exam Paper Summary</h6>
+      </div>
+      <div class="card-body">
+
+        <!-- Exam Paper Info -->
+        <h5>Exam Paper Info</h5>
+        <ul class="list-unstyled">
+          <li><strong>Version:</strong> <span th:text="${examPaper.examVersion}"></span></li>
+          <li><strong>Duration:</strong> <span th:text="${examPaper.examPaperTime}"></span> min</li>
+          <li><strong>Lecturer:</strong> <span th:text="${examPaper.lecturer.lecturerFirstName + ' '+ examPaper.lecturer.lecturerLastName}"></span></li>
+          <li><strong>Course Exam:</strong> <span th:text="${examPaper.courseExam.courseExamTitle}"></span></li>
+        </ul>
+
+        <!-- Selected Questions Summary -->
+        <h5 class="mt-4">Selected Questions</h5>
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Definition</th>
+            <th>Type</th>
+            <th>Point</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="q, iter : ${examSummary}">
+            <td th:text="${iter.index + 1}"></td>
+            <td th:text="${q.examQuestionDefinition}"></td>
+            <td th:text="${q.questionType.questionTypeDefinition}"></td>
+            <td th:text="${q.questionPoint}"></td>
+          </tr>
+          </tbody>
+          <tfoot>
+          <tr>
+            <th colspan="3" class="text-right">Total Points:</th>
+            <th th:text="${totalPoints}"></th>
+          </tr>
+          </tfoot>
+        </table>
+
+        <!-- Confirm Form -->
+        <form th:action="@{/exam-wizard/complete}" method="post">
+          <div class="form-group mt-3">
+            <button type="submit" class="btn btn-success">
+              <i class="fas fa-check"></i> Confirm & Save
+            </button>
+            <a th:href="@{/exam-wizard/start}" class="btn btn-warning">
+              <i class="fas fa-arrow-left"></i> Start Over
+            </a>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

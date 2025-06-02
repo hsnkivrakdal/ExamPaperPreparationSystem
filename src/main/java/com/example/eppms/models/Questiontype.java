@@ -27,4 +27,8 @@ public class Questiontype {
     @OneToMany(mappedBy = "questionType")
     private Set<Examquestion> examquestions = new LinkedHashSet<>();
 
+    @Override
+    public String toString() {
+        return questionTypeDefinition;
+    }
 }

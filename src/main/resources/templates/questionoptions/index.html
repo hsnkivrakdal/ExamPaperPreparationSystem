@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Question Options - Index</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <h1 class="h3 mb-2 text-gray-800">Question Options</h1>
+        <a class="btn btn-primary mb-3" th:href="@{/question-option/create}">
+            <i class="fas fa-plus"></i> Add New Question Option
+        </a>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Question Options List</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="questionOptionsTable" class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Option Text</th>
+                            <th>Is Correct</th>
+                            <th>Related Exam Question</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="opt : ${questionOptions}">
+                            <td th:text="${opt.id}"></td>
+                            <td th:text="${opt.questionOptionDefinition}"></td>
+                            <td>
+                                <span th:if="${opt.isCorrectAnswer}" class="badge badge-success">Yes</span>
+                                <span th:if="${!opt.isCorrectAnswer}" class="badge badge-secondary">No</span>
+                            </td>
+                            <td th:text="${opt.examQuestion.examQuestionDefinition}"></td>
+                            <td>
+                                <a class="btn btn-warning btn-sm" th:href="@{'/question-option/edit/' + ${opt.id}}">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <a class="btn btn-danger btn-sm" th:href="@{'/question-option/delete/' + ${opt.id}}">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+        $('#questionOptionsTable').DataTable({
+            "pageLength": 25,
+            "order": [[ 1, "asc" ]],
+            "language": {
+                "search": "Search Options:",
+                "lengthMenu": "Show _MENU_ options per page",
+                "info": "Showing _START_ to _END_ of _TOTAL_ options"
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Exam Questions - Index</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <h1 class="h3 mb-2 text-gray-800">Exam Questions</h1>
+        <a class="btn btn-primary mb-3" th:href="@{/exam-question/create}">
+            <i class="fas fa-plus"></i> Add New Exam Question
+        </a>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Exam Questions List</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="examQuestionsTable" class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Exam Question Definition</th>
+                            <th>Question Type</th>
+                            <th>Question Point</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="quest : ${examQuestion}">
+                            <td th:text="${quest.id}"></td>
+                            <td th:text="${quest.examQuestionDefinition}"></td>
+                            <td th:text="${quest.questionType}"></td>
+                            <td th:text="${quest.questionPoint}"></td>
+                            <td>
+                                <a class="btn btn-warning btn-sm" th:href="@{'/exam-question/edit/' + ${quest.id}}">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <a class="btn btn-danger btn-sm" th:href="@{'/exam-question/delete/' + ${quest.id}}">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+        $('#examQuestionsTable').DataTable({
+            "pageLength": 25,
+            "order": [[ 1, "asc" ]],
+            "language": {
+                "search": "Search Exam Questions:",
+                "lengthMenu": "Show _MENU_ questions per page",
+                "info": "Showing _START_ to _END_ of _TOTAL_ questions"
+            }
+        });
+    });
+</script>
+</body>
+</html>
