@@ -1,19 +1,22 @@
 package com.example.eppms.controllers;
 
 import com.example.eppms.models.Exampaper;
-import com.example.eppms.models.Questionoption;
+import com.example.eppms.services.ExampaperPdfExportService;
 import com.example.eppms.services.ExamPaperService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import jakarta.servlet.http.HttpServletResponse; // <-- Spring Boot 3 için GÜNCELLENDİ
 
 @Controller
 @RequestMapping("/exam-paper")
 public class ExamPaperController {
 
-    @Autowired
-    private ExamPaperService examPaperService;
+    private final ExamPaperService examPaperService;
+
+    public ExamPaperController(ExamPaperService examPaperService) {
+        this.examPaperService = examPaperService;
+    }
 
     @GetMapping("/list")
     public String getAll(Model model) {
@@ -62,5 +65,16 @@ public class ExamPaperController {
     public String delete(@PathVariable Integer id) {
         examPaperService.deleteById(id);
         return "redirect:/exam-paper/list";
+    }
+
+    // ✅ PDF EXPORT - Sıra düzeltildi: (response, exampaper)
+    @GetMapping("/export-pdf/{id}")
+    public void exportPdf(@PathVariable Integer id, HttpServletResponse response) {
+        try {
+            Exampaper exampaper = examPaperService.getById(id);
+            ExampaperPdfExportService.getInstance().export(response, exampaper); // <-- düzeltildi
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
