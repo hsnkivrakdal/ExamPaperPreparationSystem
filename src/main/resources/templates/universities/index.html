@@ -25,21 +25,16 @@
                             <th>University Name</th>
                             <th>Website</th>
                             <th>Address</th>
-                            <th>Actions</th>
+                            <td>Actions</td>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="university : ${universities}">
                             <td th:text="${university.id}"></td>
                             <td th:text="${university.universityName}"></td>
-                            <td>
-                                <a th:href="${university.universityWebsite}" target="_blank" th:text="${university.universityWebsite}"></a>
-                            </td>
+                            <td><a th:href="${university.universityWebsite}" target="_blank" th:text="${university.universityWebsite}"></a></td>
                             <td th:text="${university.universityAddress}"></td>
                             <td>
-                                <a class="btn btn-info btn-sm" th:href="@{'/universities/view/' + ${university.id}}">
-                                    <i class="fas fa-eye"></i> View
-                                </a>
                                 <a class="btn btn-warning btn-sm" th:href="@{'/universities/edit/' + ${university.id}}">
                                     <i class="fas fa-edit"></i> Edit
                                 </a>

@@ -20,17 +20,12 @@
                         <tr>
                             <th>Title Id</th>
                             <th>Title Definition</th>
-                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="title : ${lecturertitles}">
                             <td th:text="${title.id}"></td>
                             <td th:text="${title.titleDefinition}"></td>
-                            <td>
-                                <a class="btn btn-warning btn-sm" th:href="@{'/lecturertitles/edit/' + ${title.id}}">Edit</a>
-                                <a class="btn btn-danger btn-sm" th:href="@{'/lecturertitles/delete/' + ${title.id}}">Delete</a>
-                            </td>
                         </tr>
                         </tbody>
                     </table>
