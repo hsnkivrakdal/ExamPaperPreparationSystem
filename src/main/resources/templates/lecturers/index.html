@@ -9,18 +9,41 @@
 <section layout:fragment="content">
     <div class="container-fluid">
         <h1 class="h3 mb-2 text-gray-800">Lecturers</h1>
-        <a class="btn btn-success mb-3" th:href="@{/lecturers/create}">Create New Lecturer</a>
+
+        <form th:action="@{/questiontypes/list}" method="get" class="mb-3">
+            <div class="form-row align-items-center">
+                <div class="col-auto">
+                    <select class="form-control" id="filterType" name="filterType">
+                        <option value="">-- Filter Question Types --</option>
+                        <option value="short">Short Definition</option>
+
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-info">Apply Filter</button>
+                    <a th:href="@{/questiontypes/list}" class="btn btn-secondary">Reset</a>
+                </div>
+            </div>
+        </form>
+
+
+        <a class="btn btn-primary mb-3" th:href="@{/lecturers/create}">
+            <i class="fas fa-plus"></i> Create New Lecturer
+        </a>
 
         <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Lecturers List</h6>
+            </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table id="lecturersTable" class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>Lecturer Id</th>
-                            <th>Lecturer First Name</th>
-                            <th>Lecturer Last Name</th>
-                            <th>Lecturer Phone</th>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Phone</th>
                             <th>Title</th>
                             <th>Department</th>
                             <th>User</th>
@@ -33,12 +56,16 @@
                             <td th:text="${lecturer.lecturerFirstName}"></td>
                             <td th:text="${lecturer.lecturerLastName}"></td>
                             <td th:text="${lecturer.lecturerPhoneNumber}"></td>
-                            <td th:text="${lecturer.title.titleDefinition}"></td>
-                            <td th:text="${lecturer.department.departmentName}"></td>
-                            <td th:text="${lecturer.user.username}"></td>
+                            <td th:text="${lecturer.title != null ? lecturer.title.titleDefinition : 'N/A'}"></td>
+                            <td th:text="${lecturer.department != null ? lecturer.department.departmentName : 'N/A'}"></td>
+                            <td th:text="${lecturer.user != null ? lecturer.user.userEmail : 'N/A'}"></td>
                             <td>
-                                <a class="btn btn-warning btn-sm" th:href="@{'/lecturers/edit/' + ${lecturer.id}}">Edit</a>
-                                <a class="btn btn-danger btn-sm" th:href="@{'/lecturers/delete/' + ${lecturer.id}}">Delete</a>
+                                <a class="btn btn-warning btn-sm" th:href="@{'/lecturers/edit/' + ${lecturer.id}}">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <a class="btn btn-danger btn-sm" th:href="@{'/lecturers/delete/' + ${lecturer.id}}">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
                             </td>
                         </tr>
                         </tbody>
@@ -47,12 +74,21 @@
             </div>
         </div>
     </div>
-
-    <script>
-        $(document).ready(function () {
-            $('#lecturersTable').DataTable();
-        });
-    </script>
 </section>
+<script >
+
+    $(document).ready(function () {
+        $('#lecturersTable').DataTable({
+            "pageLength": 25,
+            "order": [[ 1, "asc" ]],
+            "language": {
+                "search": "Search Lecturers:",
+                "lengthMenu": "Show _MENU_ lecturers per page",
+                "info": "Showing _START_ to _END_ of _TOTAL_ lecturers"
+            }
+        });
+    });
+
+</script>
 </body>
 </html>

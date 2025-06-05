@@ -2,10 +2,16 @@ package com.example.eppms.controllers;
 
 import com.example.eppms.models.Examquestion;
 import com.example.eppms.services.ExamQuestionService;
+import com.example.eppms.strategy.EasyQuestionStrategy;
+import com.example.eppms.strategy.ExamQuestionFilterContext;
+import com.example.eppms.strategy.HardQuestionStrategy;
+import com.example.eppms.strategy.MediumQuestionStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/exam-question")
@@ -15,10 +21,30 @@ public class ExamQuestionController {
     private ExamQuestionService examQuestionService;
 
     @GetMapping("/list")
-    public String getAll(Model model) {
-        model.addAttribute("examQuestion", examQuestionService.getAll());
+    public String getAll(@RequestParam(required = false) String difficulty, Model model) {
+        List<Examquestion> questions = examQuestionService.getAll();
+
+        ExamQuestionFilterContext context = new ExamQuestionFilterContext();
+
+        if (difficulty != null) {
+            switch (difficulty.toLowerCase()) {
+                case "easy":
+                    context.setStrategy(new EasyQuestionStrategy());
+                    break;
+                case "medium":
+                    context.setStrategy(new MediumQuestionStrategy());
+                    break;
+                case "hard":
+                    context.setStrategy(new HardQuestionStrategy());
+                    break;
+            }
+            questions = context.executeStrategy(questions);
+        }
+
+        model.addAttribute("examQuestion", questions);
         return "examquestions/index";
     }
+
 
     @GetMapping("/create")
     public String getCreatePage(Model model) {

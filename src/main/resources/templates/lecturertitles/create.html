@@ -10,20 +10,31 @@
     <div class="container-fluid">
         <h1 class="h3 mb-2 text-gray-800">Create New Lecturer Title</h1>
         <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Lecturer Title Information</h6>
+            </div>
             <div class="card-body">
                 <form th:action="@{/lecturertitles/create}" th:object="${lecturertitle}" method="post">
                     <div class="form-group">
-                        <label for="titleDefinition">Title Definition</label>
+                        <label for="titleDefinition">Title Definition <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="titleDefinition"
                                th:field="*{titleDefinition}" placeholder="Enter title definition" required />
                     </div>
 
-                    <button type="submit" class="btn btn-success">Save</button>
-                    <a th:href="@{/lecturertitles/list}" class="btn btn-warning">Cancel</a>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> Save Title
+                        </button>
+                        <a th:href="@{/lecturertitles/list}" class="btn btn-warning">
+                            <i class="fas fa-times"></i> Cancel
+                        </a>
+                    </div>
                 </form>
             </div>
             <div class="card-footer">
-                <a th:href="@{/lecturertitles/list}" class="btn btn-link">Back to List</a>
+                <a th:href="@{/lecturertitles/list}" class="btn btn-link">
+                    <i class="fas fa-arrow-left"></i> Back to Titles List
+                </a>
             </div>
         </div>
     </div>

@@ -7,6 +7,56 @@
 </head>
 <body>
 <section layout:fragment="content">
+
+   <!-- 1. Dropdown (Select Box) -->
+    <form th:action="@{/exam-question/list}" method="get" class="mb-3">
+
+        <div class="form-row align-items-center">
+            <div class="col-auto">
+                <select name="difficulty" class="form-control" onchange="this.form.submit()">
+                    <option value="">-- Select Difficulty --</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
+        </div>
+    </form>
+
+    <!-- 2. Radio Button Filter -->
+    <!-- <form th:action="@{/exam-question/list}" method="get" class="mb-3">
+
+         <div class="form-check form-check-inline">
+             <input class="form-check-input" type="radio" name="difficulty" value="" id="all">
+             <label class="form-check-label" for="all">All</label>
+         </div>
+         <div class="form-check form-check-inline">
+             <input class="form-check-input" type="radio" name="difficulty" value="easy" id="easy">
+             <label class="form-check-label" for="easy">Easy</label>
+         </div>
+         <div class="form-check form-check-inline">
+             <input class="form-check-input" type="radio" name="difficulty" value="medium" id="medium">
+             <label class="form-check-label" for="medium">Medium</label>
+         </div>
+         <div class="form-check form-check-inline">
+             <input class="form-check-input" type="radio" name="difficulty" value="hard" id="hard">
+             <label class="form-check-label" for="hard">Hard</label>
+         </div>
+         <button type="submit" class="btn btn-sm btn-outline-primary ml-2">Apply Filter</button>
+     </form>
+
+     <!-- 3. Badge Style Button Filter -->
+    <!--  <div class="mb-3">
+          <label><strong>Badge Style Filter</strong></label><br>
+          <div class="btn-group btn-group-sm" role="group" aria-label="Difficulty filter">
+              <a th:href="@{/exam-question/list}" class="btn btn-outline-secondary">All</a>
+              <a th:href="@{/exam-question/list(difficulty='easy')}" class="btn btn-outline-success">Easy</a>
+              <a th:href="@{/exam-question/list(difficulty='medium')}" class="btn btn-outline-warning">Medium</a>
+              <a th:href="@{/exam-question/list(difficulty='hard')}" class="btn btn-outline-danger">Hard</a>
+          </div>
+      </div>-->
+
+    <!-- Table Section -->
     <div class="container-fluid">
         <h1 class="h3 mb-2 text-gray-800">Exam Questions</h1>
         <a class="btn btn-primary mb-3" th:href="@{/exam-question/create}">
@@ -50,6 +100,8 @@
         </div>
     </div>
 </section>
+
+
 <script>
     $(document).ready(function () {
         $('#examQuestionsTable').DataTable({

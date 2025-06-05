@@ -10,22 +10,31 @@
     <div class="container-fluid">
         <h1 class="h3 mb-2 text-gray-800">Create New Question Type</h1>
         <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Question Type Information</h6>
+            </div>
             <div class="card-body">
                 <form th:action="@{/questiontypes/create}" th:object="${questiontype}" method="post">
                     <div class="form-group">
-                        <label for="questionTypeDefinition">Question Type Definition</label>
+                        <label for="questionTypeDefinition">Question Type Definition <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="questionTypeDefinition"
                                th:field="*{questionTypeDefinition}" placeholder="Enter definition" required />
                     </div>
 
-                    <button type="submit" class="btn btn-success">Save</button>
-                    <a th:href="@{/questiontypes/list}" class="btn btn-warning">Cancel</a>
-
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> Save Question Type
+                        </button>
+                        <a th:href="@{/questiontypes/list}" class="btn btn-warning">
+                            <i class="fas fa-times"></i> Cancel
+                        </a>
+                    </div>
                 </form>
             </div>
-            <!-- Footer Link -->
             <div class="card-footer">
-                <a th:href="@{/questiontypes/list}" class="btn btn-link">Back to List</a>
+                <a th:href="@{/questiontypes/list}" class="btn btn-link">
+                    <i class="fas fa-arrow-left"></i> Back to Question Types List
+                </a>
             </div>
         </div>
     </div>

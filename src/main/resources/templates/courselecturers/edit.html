@@ -9,31 +9,42 @@
 <section layout:fragment="content">
     <div class="container-fluid">
         <h1 class="h3 mb-2 text-gray-800">Edit Course Lecturer</h1>
+        <a class="btn btn-primary mb-3" th:href="@{/courselecturers/list}">
+            <i class="fas fa-arrow-left"></i> Back to List
+        </a>
+
         <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Edit Form</h6>
+            </div>
             <div class="card-body">
                 <form th:action="@{/courselecturers/update}" th:object="${courselecturer}" method="post">
                     <input type="hidden" th:field="*{id}" />
 
                     <div class="form-group">
                         <label for="course">Course</label>
-                        <select class="form-control" th:field="*{course}" id="course">
+                        <select class="form-control" th:field="*{course}" id="course" required>
+                            <option disabled selected value="">-- Select Course --</option>
                             <option th:each="c : ${courses}" th:value="${c.id}" th:text="${c.courseName}"></option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="lecturer">Lecturer</label>
-                        <select class="form-control" th:field="*{lecturer}" id="lecturer">
-                            <option th:each="l : ${lecturers}" th:value="${l.id}" th:text="${l.lecturerFirstName + ' ' + l.lecturerLastName}"></option>
+                        <select class="form-control" th:field="*{lecturer}" id="lecturer" required>
+                            <option disabled selected value="">-- Select Lecturer --</option>
+                            <option th:each="l : ${lecturers}" th:value="${l.id}"
+                                    th:text="${l.lecturerFirstName + ' ' + l.lecturerLastName}"></option>
                         </select>
                     </div>
 
-                    <button type="submit" class="btn btn-success">Update</button>
-                    <a th:href="@{/courselecturers/list}" class="btn btn-warning">Cancel</a>
+                    <button type="submit" class="btn btn-success mt-3">
+                        <i class="fas fa-save"></i> Save
+                    </button>
+                    <a th:href="@{/courselecturers/list}" class="btn btn-secondary mt-3">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
                 </form>
-            </div>
-            <div class="card-footer">
-                <a th:href="@{/courselecturers/list}" class="btn btn-link">Back to List</a>
             </div>
         </div>
     </div>

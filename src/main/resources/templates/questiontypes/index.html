@@ -3,27 +3,43 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
-    <title>QuestionType - Index</title>
+    <title>Question Types - Index</title>
 </head>
 <body>
 <section layout:fragment="content">
     <div class="container-fluid">
         <h1 class="h3 mb-2 text-gray-800">Question Types</h1>
-        <a class="btn btn-primary mb-3" th:href="@{/questiontypes/create}">Create New Question Type</a>
+
+        <a class="btn btn-primary mb-3" th:href="@{/questiontypes/create}">
+            <i class="fas fa-plus"></i> Create New Question Type
+        </a>
+
         <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Question Type List</h6>
+            </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="coursesTable" class="table table-bordered" width="100%" cellspacing="0">
+                    <table id="questionTypesTable" class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>QuestionType Id</th>
-                            <th>QuestionType Definition</th>
+                            <th>ID</th>
+                            <th>Question Type Definition</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="qt : ${questionTypes}">
-                            <td th:text="${qt.id}"></td>
-                            <td th:text="${qt.questionTypeDefinition}"></td>
+                        <tr th:each="questiontype : ${questiontypes}">
+                            <td th:text="${questiontype.id}"></td>
+                            <td th:text="${questiontype.questionTypeDefinition}"></td>
+                            <td>
+                                <a class="btn btn-warning btn-sm" th:href="@{'/questiontypes/edit/' + ${questiontype.id}}">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <a class="btn btn-danger btn-sm" th:href="@{'/questiontypes/delete/' + ${questiontype.id}}">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -31,12 +47,20 @@
             </div>
         </div>
     </div>
-
-    <script>
-        $(document).ready(function () {
-            $('#coursesTable').DataTable();
-        });
-    </script>
 </section>
+
+<script>
+    $(document).ready(function () {
+        $('#questionTypesTable').DataTable({
+            "pageLength": 25,
+            "order": [[1, "asc"]],
+            "language": {
+                "search": "Search Question Types:",
+                "lengthMenu": "Show _MENU_ per page",
+                "info": "Showing _START_ to _END_ of _TOTAL_ question types"
+            }
+        });
+    });
+</script>
 </body>
 </html>

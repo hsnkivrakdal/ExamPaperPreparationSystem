@@ -9,14 +9,61 @@
 <section layout:fragment="content">
     <div class="container-fluid">
         <h1 class="h3 mb-4 text-gray-800">Delete Lecturer</h1>
-        <div class="alert alert-warning">
-            Are you sure you want to delete the lecturer:
-            <strong th:text="${lecturer.lecturerFirstName + ' ' + lecturer.lecturerLastName}"></strong>?
+
+        <div class="card shadow mb-4 border-left-danger">
+            <div class="card-header py-3 bg-danger">
+                <h6 class="m-0 font-weight-bold text-white">
+                    <i class="fas fa-exclamation-circle"></i> Confirm Deletion
+                </h6>
+            </div>
+
+            <div class="card-body">
+                <div class="alert alert-danger">
+                    <h5><i class="fas fa-exclamation-triangle"></i> Warning!</h5>
+                    Are you sure you want to delete the lecturer:
+                    <strong th:text="${lecturer.lecturerFirstName + ' ' + lecturer.lecturerLastName}"></strong>?
+                    <br>
+                    <small class="text-muted d-block mt-2">
+                        <strong>Note:</strong> This action cannot be undone.
+                    </small>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <h6>Lecturer Details:</h6>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <strong>ID:</strong> <span th:text="${lecturer.id}"></span>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>First Name:</strong> <span th:text="${lecturer.lecturerFirstName}"></span>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Last Name:</strong> <span th:text="${lecturer.lecturerLastName}"></span>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Phone Number:</strong> <span th:text="${lecturer.lecturerPhoneNumber}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <form th:action="@{/lecturers/delete/{id}(id=${lecturer.id})}" method="post">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash-alt"></i> Yes, Delete Lecturer
+                    </button>
+                    <a th:href="@{/lecturers/list}" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </form>
+            </div>
+
+            <div class="card-footer">
+                <a th:href="@{/lecturers/list}" class="btn btn-link">
+                    <i class="fas fa-arrow-left"></i> Back to Lecturer List
+                </a>
+            </div>
         </div>
-        <form th:action="@{/lecturers/delete/{id}(id=${lecturer.id})}" method="post">
-            <button type="submit" class="btn btn-danger">Delete</button>
-            <a th:href="@{/lecturers/list}" class="btn btn-secondary">Cancel</a>
-        </form>
     </div>
 </section>
 </body>

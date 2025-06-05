@@ -10,38 +10,53 @@
     <div class="container-fluid">
         <h1 class="h3 mb-2 text-gray-800">Create New Course Lecturer</h1>
         <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Assignment Information</h6>
+            </div>
             <div class="card-body">
                 <form th:action="@{/courselecturers/create}" th:object="${courselecturer}" method="post">
-                    <div class="form-group">
-                        <label for="lecturer">Lecturer</label>
-                        <select class="form-control" id="lecturer" th:field="*{lecturer.id}" required>
-                            <option value="">Select Lecturer...</option>
-                            <option th:each="lecturer : ${lecturers}"
-                                    th:value="${lecturer.id}"
-                                    th:text="${lecturer.lecturerFirstName + ' ' + lecturer.lecturerLastName}">
-                            </option>
-                        </select>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="lecturer">Lecturer <span class="text-danger">*</span></label>
+                                <select class="form-control" id="lecturer" th:field="*{lecturer.id}" required>
+                                    <option value="">Select Lecturer...</option>
+                                    <option th:each="lecturer : ${lecturers}"
+                                            th:value="${lecturer.id}"
+                                            th:text="${lecturer.lecturerFirstName + ' ' + lecturer.lecturerLastName}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="term">Term <span class="text-danger">*</span></label>
+                                <select class="form-control" id="term" th:field="*{term.id}" required>
+                                    <option value="">Select Term...</option>
+                                    <option th:each="term : ${terms}"
+                                            th:value="${term.id}"
+                                            th:text="${term.termName}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="term">Term</label>
-                        <select class="form-control" id="term" th:field="*{term.id}" required>
-                            <option value=""> Select term...</option>
-                            <option th:each="term : ${terms}"
-                                    th:value="${term.id}"
-                                    th:text="${term.termName}">
-                            </option>
-                        </select>
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> Save Assignment
+                        </button>
+                        <a th:href="@{/courselecturers/list}" class="btn btn-warning">
+                            <i class="fas fa-times"></i> Cancel
+                        </a>
                     </div>
-
-                    <button type="submit" class="btn btn-success">Save</button>
-                    <a th:href="@{/courselecturers/list}" class="btn btn-warning">Cancel</a>
                 </form>
             </div>
 
-            <!-- Footer Link -->
             <div class="card-footer">
-                <a th:href="@{/courselecturers/list}" class="btn btn-link">Back to List</a>
+                <a th:href="@{/courselecturers/list}" class="btn btn-link">
+                    <i class="fas fa-arrow-left"></i> Back to Course Lecturer List
+                </a>
             </div>
         </div>
     </div>

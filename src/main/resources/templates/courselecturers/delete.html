@@ -9,16 +9,59 @@
 <section layout:fragment="content">
     <div class="container-fluid">
         <h1 class="h3 mb-4 text-gray-800">Delete Course Lecturer</h1>
-        <div class="alert alert-warning">
-            Are you sure you want to delete the assignment of:
-            <strong th:text="${courselecturer.lecturer.lecturerFirstName + ' ' + courselecturer.lecturer.lecturerLastName}"></strong>
-            from course
-            <strong th:text="${courselecturer.course.courseName}"></strong>?
+
+        <div class="card shadow mb-4 border-left-danger">
+            <div class="card-header py-3 bg-danger">
+                <h6 class="m-0 font-weight-bold text-white">
+                    <i class="fas fa-exclamation-circle"></i> Confirm Deletion
+                </h6>
+            </div>
+
+            <div class="card-body">
+                <div class="alert alert-danger">
+                    <h5><i class="fas fa-exclamation-triangle"></i> Warning!</h5>
+                    Are you sure you want to remove
+                    <strong th:text="${courselecturer.lecturer.lecturerFirstName + ' ' + courselecturer.lecturer.lecturerLastName}"></strong>
+                    from the course
+                    <strong th:text="${courselecturer.course.courseName}"></strong>?
+                    <br>
+                    <small class="text-muted d-block mt-2">
+                        <strong>Note:</strong> This action cannot be undone.
+                    </small>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <h6>Assignment Details:</h6>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <strong>Course:</strong>
+                                <span th:text="${courselecturer.course.courseName}"></span>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Lecturer:</strong>
+                                <span th:text="${courselecturer.lecturer.lecturerFirstName + ' ' + courselecturer.lecturer.lecturerLastName}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <form th:action="@{/courselecturers/delete/{id}(id=${courselecturer.id})}" method="post">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash-alt"></i> Yes, Delete Assignment
+                    </button>
+                    <a th:href="@{/courselecturers/list}" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </form>
+            </div>
+
+            <div class="card-footer">
+                <a th:href="@{/courselecturers/list}" class="btn btn-link">
+                    <i class="fas fa-arrow-left"></i> Back to Assignments List
+                </a>
+            </div>
         </div>
-        <form th:action="@{/courselecturers/delete/{id}(id=${courselecturer.id})}" method="post">
-            <button type="submit" class="btn btn-danger">Delete</button>
-            <a th:href="@{/courselecturers/list}" class="btn btn-secondary">Cancel</a>
-        </form>
     </div>
 </section>
 </body>

@@ -9,25 +9,31 @@
 <section layout:fragment="content">
     <div class="container-fluid">
         <h1 class="h3 mb-2 text-gray-800">Edit Question Type</h1>
+        <a class="btn btn-primary mb-3" th:href="@{/questiontypes/list}">
+            <i class="fas fa-arrow-left"></i> Back to List
+        </a>
+
         <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Edit Form</h6>
+            </div>
             <div class="card-body">
                 <form th:action="@{/questiontypes/update}" th:object="${questiontype}" method="post">
                     <input type="hidden" th:field="*{id}" />
 
                     <div class="form-group">
-                        <label for="questionTypeDefinition">Question Type Definition</label>
+                        <label for="questionTypeDefinition">Definition</label>
                         <input type="text" class="form-control" id="questionTypeDefinition"
                                th:field="*{questionTypeDefinition}" placeholder="Enter definition" required />
                     </div>
 
-                    <button type="submit" class="btn btn-success">Update</button>
-                    <a th:href="@{/questiontypes/list}" class="btn btn-warning">Cancel</a>
+                    <button type="submit" class="btn btn-success mt-3">
+                        <i class="fas fa-save"></i> Update
+                    </button>
+                    <a th:href="@{/questiontypes/list}" class="btn btn-secondary mt-3">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
                 </form>
-            </div>
-
-            <!-- Footer Link -->
-            <div class="card-footer">
-                <a th:href="@{/questiontypes/list}" class="btn btn-link">Back to List</a>
             </div>
         </div>
     </div>
