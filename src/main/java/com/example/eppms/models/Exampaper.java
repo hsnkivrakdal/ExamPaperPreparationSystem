@@ -38,4 +38,8 @@ public class Exampaper {
     @OneToMany(mappedBy = "examPaper")
     private Set<Exampaperquestion> exampaperquestions = new LinkedHashSet<>();
 
+    public Set<Exampaperquestion> getExampaperquestions() {
+        return exampaperquestions;
+    }
+
 }

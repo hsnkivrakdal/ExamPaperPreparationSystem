@@ -44,4 +44,8 @@ public class Cours {
     public String toString() {
         return courseTitle;
     }
+
+    public String getCourseTitle() {
+        return courseTitle;
+    }
 }

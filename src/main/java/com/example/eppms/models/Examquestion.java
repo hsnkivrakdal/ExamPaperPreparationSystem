@@ -41,4 +41,61 @@ public class Examquestion {
     public String toString() {
         return examQuestionDefinition;
     }
+
+    public String getQuestionText() {
+        return examQuestionDefinition;
+    }
+
+    // Şıklar için örnek metotlar (varsayım: questionoptions setinde A,B,C,D seçenekleri var)
+    public String getOptionA() {
+        return getOptionByLabel("A");
+    }
+
+    public String getOptionB() {
+        return getOptionByLabel("B");
+    }
+
+    public String getOptionC() {
+        return getOptionByLabel("C");
+    }
+
+    public String getOptionD() {
+        return getOptionByLabel("D");
+    }
+
+    private String getOptionByLabel(String label) {
+        if (questionoptions != null) {
+            for (Questionoption option : questionoptions) {
+                // OptionLabel alanı kaldırıldığı için, label kontrolü yapılamaz
+                // Sadece sıralamaya göre döndürülür
+                // A: 0, B: 1, C: 2, D: 3
+                int idx = -1;
+                switch (label.toUpperCase()) {
+                    case "A":
+                        idx = 0;
+                        break;
+                    case "B":
+                        idx = 1;
+                        break;
+                    case "C":
+                        idx = 2;
+                        break;
+                    case "D":
+                        idx = 3;
+                        break;
+                }
+                if (idx >= 0) {
+                    int i = 0;
+                    for (Questionoption opt : questionoptions) {
+                        if (i == idx) {
+                            return opt.getOptionText();
+                        }
+                        i++;
+                    }
+                }
+                break;
+            }
+        }
+        return null;
+    }
 }

@@ -1,36 +1,31 @@
 package com.example.eppms.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "universities")
 public class University {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "UniversityId", nullable = false)
+    @Column(name = "UniversityId")
     private Integer id;
 
-    @Column(name = "UniversityName", nullable = false, length = 50)
-    private String universityName;
+    @Column(name = "UniversityName", nullable = false, length = 100)
+    private String name;
 
-    @Column(name = "UniversityAddress", nullable = false, length = 256)
-    private String universityAddress;
+    public University() {}
 
-    @Column(name = "UniversityWebsite", nullable = false, length = 60)
-    private String universityWebsite;
+    public University(String name) {
+        this.name = name;
+    }
 
-    @OneToMany(mappedBy = "university")
-    private Set<Faculty> faculties = new LinkedHashSet<>();
-
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    public String getName() {
+        return name;
+    }
 }

@@ -32,38 +32,75 @@ public class CoursesExamPdfExportService {
         document.addPage(page);
 
         PDPageContentStream stream = new PDPageContentStream(document, page);
+        // Başlık ve üst kısım
+        stream.setStrokingColor(0, 0, 0);
+        stream.setLineWidth(1f);
+        stream.addRect(40, 740, 515, 90); // Başlık kutusu
+        stream.stroke();
+
         stream.beginText();
-        stream.setFont(PDType1Font.HELVETICA_BOLD, 16);
-        stream.setLeading(20f);
-        stream.newLineAtOffset(50, 750);
-
-        stream.showText("Course Exam Details");
-        stream.newLine();
-        stream.newLine();
-        stream.setFont(PDType1Font.HELVETICA, 12);
-
-        stream.showText("ID: " + exam.getId());
-        stream.newLine();
-        stream.showText("Title: " + exam.getCourseExamTitle());
-        stream.newLine();
-        stream.showText("Date: " + exam.getCourseExamDate());
-        stream.newLine();
-        stream.showText("Capacity: " + exam.getCourseExamCapacity());
-        stream.newLine();
-        stream.showText("Section: " + exam.getCourseExamSection());
-        stream.newLine();
-
-        if (exam.getExamType() != null) {
-            stream.showText("Exam Type: " + exam.getExamType().getExamTypeTitle());
-            stream.newLine();
-        }
-
-        if (exam.getCourse() != null) {
-            stream.showText("Course: " + exam.getCourse().getCourseTitle());
-            stream.newLine();
-        }
-
+        stream.setFont(PDType1Font.HELVETICA_BOLD, 20);
+        stream.newLineAtOffset(60, 800);
+        stream.showText("AKADEMİK SINAV KAĞIDI");
         stream.endText();
+
+        // Sınav bilgileri
+        stream.beginText();
+        stream.setFont(PDType1Font.HELVETICA, 12);
+        stream.setLeading(18f);
+        stream.newLineAtOffset(60, 770);
+        stream.showText("Ders: " + (exam.getCourse() != null ? exam.getCourse().getCourseTitle() : "-"));
+        stream.newLine();
+        stream.showText("Sınav Başlığı: " + (exam.getCourseExamTitle() != null ? exam.getCourseExamTitle() : "-"));
+        stream.newLine();
+        stream.showText("Tarih: " + (exam.getCourseExamDate() != null ? exam.getCourseExamDate() : "-"));
+        stream.newLine();
+        stream.showText("Sınav Türü: " + (exam.getExamType() != null ? exam.getExamType().getExamTypeTitle() : "-"));
+        stream.newLine();
+        stream.showText("Bölüm: " + (exam.getCourseExamSection() != null ? exam.getCourseExamSection() : "-"));
+        stream.endText();
+
+        // Öğrenci Bilgileri Alanı
+        stream.setLineWidth(0.5f);
+        stream.addRect(40, 700, 515, 30);
+        stream.stroke();
+        stream.beginText();
+        stream.setFont(PDType1Font.HELVETICA, 12);
+        stream.newLineAtOffset(50, 715);
+        stream.showText("Ad Soyad: .....................................................   No: ....................");
+        stream.endText();
+
+        // Sorular için örnek tablo başlığı
+        stream.setLineWidth(0.5f);
+        stream.addRect(40, 650, 515, 30);
+        stream.stroke();
+        stream.beginText();
+        stream.setFont(PDType1Font.HELVETICA_BOLD, 13);
+        stream.newLineAtOffset(50, 665);
+        stream.showText("SORULAR");
+        stream.endText();
+
+        // Sorular (örnek, gerçek sorular eklenmek istenirse burada döngü ile eklenebilir)
+        float y = 640;
+        for (int i = 1; i <= 5; i++) {
+            stream.setLineWidth(0.3f);
+            stream.addRect(50, y, 495, 40);
+            stream.stroke();
+            stream.beginText();
+            stream.setFont(PDType1Font.HELVETICA, 12);
+            stream.newLineAtOffset(55, y + 25);
+            stream.showText(i + ". Soru: ............................................................");
+            stream.endText();
+            y -= 50;
+        }
+
+        // Alt bilgi
+        stream.beginText();
+        stream.setFont(PDType1Font.HELVETICA_OBLIQUE, 10);
+        stream.newLineAtOffset(50, 100);
+        stream.showText("Not: Cevaplarınızı tükenmez kalemle yazınız. Başarılar dileriz.");
+        stream.endText();
+
         stream.close();
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

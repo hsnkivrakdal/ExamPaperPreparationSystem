@@ -28,4 +28,7 @@ public class Questionoption {
     @JoinColumn(name = "ExamQuestionId")
     private Examquestion examQuestion;
 
+    public String getOptionText() {
+        return questionOptionDefinition;
+    }
 }

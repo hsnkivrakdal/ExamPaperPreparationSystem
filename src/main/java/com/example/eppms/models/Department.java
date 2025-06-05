@@ -34,4 +34,8 @@ public class Department {
     @OneToMany(mappedBy = "department")
     private Set<Program> programs = new LinkedHashSet<>();
 
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
 }

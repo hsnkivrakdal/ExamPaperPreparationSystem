@@ -221,8 +221,8 @@ public class FacultyController {
             return FacultyViewBuilder.create()
                     .withModel(model)
                     .withFaculties(universitiesFaculties)
-                    .withPageTitle("Faculties of " + university.getUniversityName())
-                    .withSuccessMessage("Found " + universitiesFaculties.size() + " faculties for " + university.getUniversityName())
+                    .withPageTitle("Faculties of " + university.getName())
+                    .withSuccessMessage("Found " + universitiesFaculties.size() + " faculties for " + university.getName())
                     .buildListView();
                     
         } catch (Exception e) {
@@ -295,7 +295,7 @@ public class FacultyController {
             try {
                 University university = universityService.getById(universityId);
                 if (university != null) {
-                    info.append("University: ").append(university.getUniversityName());
+                    info.append("University: ").append(university.getName());
                 }
             } catch (Exception e) {
                 info.append("University ID: ").append(universityId);
