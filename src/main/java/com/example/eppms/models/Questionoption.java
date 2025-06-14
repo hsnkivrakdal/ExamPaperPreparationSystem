@@ -18,7 +18,8 @@ public class Questionoption {
     @Column(name = "QuestionOptionId", nullable = false)
     private Integer id;
 
-    @Column(name = "QuestionOptionDefinition", nullable = false, length = 250)
+    @Lob
+    @Column(name = "QuestionOptionDefinition", nullable = false)
     private String questionOptionDefinition;
 
     @Column(name = "IsCorrectAnswer")

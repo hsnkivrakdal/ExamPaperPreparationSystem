@@ -1,6 +1,9 @@
 package com.example.eppms.services;
 
 import com.example.eppms.models.Coursesexam;
+import com.example.eppms.models.Exampaper;
+import com.example.eppms.models.Exampaperquestion;
+import com.example.eppms.models.Examquestion;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
@@ -10,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.List;
+import java.util.ArrayList;
 
 @Service
 public class CoursesExamPdfExportService {
@@ -23,6 +28,26 @@ public class CoursesExamPdfExportService {
             instance = new CoursesExamPdfExportService();
         }
         return instance;
+    }
+
+    // Uzun metinleri satırlara bölen yardımcı fonksiyon
+    private List<String> wrapText(String text, int maxWidth, PDType1Font font, int fontSize) throws IOException {
+        List<String> lines = new ArrayList<>();
+        String[] words = text.split(" ");
+        StringBuilder line = new StringBuilder();
+        for (String word : words) {
+            String testLine = line.length() == 0 ? word : line + " " + word;
+            float size = font.getStringWidth(testLine) / 1000 * fontSize;
+            if (size > maxWidth) {
+                lines.add(line.toString());
+                line = new StringBuilder(word);
+            } else {
+                if (line.length() > 0) line.append(" ");
+                line.append(word);
+            }
+        }
+        if (line.length() > 0) lines.add(line.toString());
+        return lines;
     }
 
     // PDF dosyasını byte stream olarak dönen method
@@ -80,18 +105,54 @@ public class CoursesExamPdfExportService {
         stream.showText("SORULAR");
         stream.endText();
 
-        // Sorular (örnek, gerçek sorular eklenmek istenirse burada döngü ile eklenebilir)
+        // Sorular (artık gerçek sorular Exampaper üzerinden alınacak)
         float y = 640;
-        for (int i = 1; i <= 5; i++) {
-            stream.setLineWidth(0.3f);
-            stream.addRect(50, y, 495, 40);
-            stream.stroke();
+        int maxWidth = 480; // kutu genişliği
+        int fontSize = 12;
+        float marginBottom = 100; // Alt boşluk
+        // Exampaper'ı bul
+        Exampaper exampaper = null;
+        if (exam.getExampapers() != null && !exam.getExampapers().isEmpty()) {
+            exampaper = exam.getExampapers().iterator().next();
+        }
+        if (exampaper != null && exampaper.getExampaperquestions() != null) {
+            int soruNo = 1;
+            for (Exampaperquestion epq : exampaper.getExampaperquestions()) {
+                Examquestion question = epq.getExamQuestion();
+                if (question == null) continue;
+                String questionText = soruNo + ". Soru: " + question.getExamQuestionDefinition();
+                List<String> lines = wrapText(questionText, maxWidth, PDType1Font.HELVETICA, fontSize);
+                float boxHeight = 20 + lines.size() * 15;
+                // Eğer kutu sayfaya sığmazsa yeni sayfa ekle
+                if (y - boxHeight < marginBottom) {
+                    stream.close();
+                    page = new PDPage(PDRectangle.A4);
+                    document.addPage(page);
+                    stream = new PDPageContentStream(document, page);
+                    y = 800;
+                }
+                stream.setLineWidth(0.3f);
+                stream.addRect(50, y, 495, boxHeight);
+                stream.stroke();
+                stream.beginText();
+                stream.setFont(PDType1Font.HELVETICA, fontSize);
+                stream.setLeading(15f);
+                stream.newLineAtOffset(55, y + boxHeight - 15);
+                for (String line : lines) {
+                    stream.showText(line);
+                    stream.newLine();
+                }
+                stream.endText();
+                y -= (boxHeight + 10);
+                soruNo++;
+            }
+        } else {
+            // Soru yoksa örnek metin
             stream.beginText();
-            stream.setFont(PDType1Font.HELVETICA, 12);
-            stream.newLineAtOffset(55, y + 25);
-            stream.showText(i + ". Soru: ............................................................");
+            stream.setFont(PDType1Font.HELVETICA, fontSize);
+            stream.newLineAtOffset(55, y);
+            stream.showText("Soru bulunamadı.");
             stream.endText();
-            y -= 50;
         }
 
         // Alt bilgi
