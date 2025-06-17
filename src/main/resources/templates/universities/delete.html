@@ -9,50 +9,41 @@
 <section layout:fragment="content">
     <div class="container-fluid">
         <h1 class="h3 mb-4 text-gray-800">Delete University</h1>
-        
-        <div class="card shadow mb-4">
-            <div class="card-header py-3 bg-danger">
-                <h6 class="m-0 font-weight-bold text-white">
-                    <i class="fas fa-exclamation-triangle"></i> Confirm Deletion
-                </h6>
+
+        <div class="card border-danger shadow mb-4">
+            <div class="card-header bg-danger text-white">
+                <h6 class="m-0 font-weight-bold">⚠️ Confirm Deletion</h6>
             </div>
             <div class="card-body">
-                <div class="alert alert-danger">
-                    <h5><i class="fas fa-exclamation-triangle"></i> Warning!</h5>
-                    Are you sure you want to delete the university:
-                    <strong th:text="${university.universityName}"></strong>?
-                    <br><br>
-                    <small class="text-muted">
-                        <strong>Note:</strong> This action cannot be undone. All related faculties, departments, 
-                        and programs will also be affected.
-                    </small>
+                <div class="alert alert-danger" role="alert">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <strong>Warning!</strong> Are you sure you want to delete this university? This action cannot be undone.
                 </div>
 
                 <div class="row">
                     <div class="col-md-6">
-                        <h6>University Details:</h6>
-                        <ul class="list-unstyled">
-                            <li><strong>Name:</strong> <span th:text="${university.universityName}"></span></li>
-                            <li><strong>Website:</strong> <span th:text="${university.universityWebsite}"></span></li>
-                            <li><strong>Address:</strong> <span th:text="${university.universityAddress}"></span></li>
-                        </ul>
+                        <p><strong>University Name:</strong> <span th:text="${university.universityName}"></span></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Website:</strong> <span th:text="${university.universityWebsite ?: 'N/A'}"></span></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <p><strong>Address:</strong> <span th:text="${university.universityAddress ?: 'N/A'}"></span></p>
                     </div>
                 </div>
 
-                <form th:action="@{/universities/delete/{id}(id=${university.id})}" method="post">
-                    <button type="submit" class="btn btn-danger">
-                        <i class="fas fa-trash"></i> Yes, Delete University
-                    </button>
+                <div class="form-group mt-4">
+                    <form th:action="@{'/universities/delete/' + ${university.id}}" method="post" style="display: inline;">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Yes, Delete University
+                        </button>
+                    </form>
                     <a th:href="@{/universities/list}" class="btn btn-secondary">
                         <i class="fas fa-times"></i> Cancel
                     </a>
-                </form>
-            </div>
-            
-            <div class="card-footer">
-                <a th:href="@{/universities/list}" class="btn btn-link">
-                    <i class="fas fa-arrow-left"></i> Back to Universities List
-                </a>
+                </div>
             </div>
         </div>
     </div>

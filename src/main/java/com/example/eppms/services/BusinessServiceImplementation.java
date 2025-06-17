@@ -18,26 +18,41 @@ public class BusinessServiceImplementation<T, Integer> implements BusinessServic
 
     @Override
     public T getById(Integer id) {
-        return repository.findById(id).get();
+        if (id == null) {
+            return null;
+        }
+        return repository.findById(id).orElse(null);
     }
 
     @Override
     public void add(T entity) {
+        if (entity == null) {
+            throw new IllegalArgumentException("Entity cannot be null for add operation");
+        }
         repository.save(entity);
     }
 
     @Override
     public void update(T entity) {
+        if (entity == null) {
+            throw new IllegalArgumentException("Entity cannot be null for update operation");
+        }
         repository.save(entity);
     }
 
     @Override
     public void delete(T entity) {
+        if (entity == null) {
+            throw new IllegalArgumentException("Entity cannot be null for delete operation");
+        }
         repository.delete(entity);
     }
 
     @Override
     public void deleteById(Integer id) {
+        if (id == null) {
+            throw new IllegalArgumentException("ID cannot be null for delete operation");
+        }
         repository.deleteById(id);
     }
 }

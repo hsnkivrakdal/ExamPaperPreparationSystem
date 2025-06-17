@@ -4,6 +4,8 @@
       layout:decorate="~{layout}">
 <head>
     <title>Universities - Index</title>
+    <!-- DataTables CSS -->
+    <link th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
 </head>
 <body>
 <section layout:fragment="content">
@@ -25,7 +27,7 @@
                             <th>University Name</th>
                             <th>Website</th>
                             <th>Address</th>
-                            <td>Actions</td>
+                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -50,7 +52,11 @@
         </div>
     </div>
 
-    <script>
+    <!-- DataTables JS -->
+    <script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+    
+    <script th:inline="none">
         $(document).ready(function () {
             $('#universitiesTable').DataTable({
                 "pageLength": 25,

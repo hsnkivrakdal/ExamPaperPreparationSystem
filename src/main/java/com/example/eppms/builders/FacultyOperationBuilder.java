@@ -37,14 +37,21 @@ public class FacultyOperationBuilder {
             validateServicesForCRUD();
             validateFacultyForCreate(faculty);
             
-            // Set university if only ID is provided
-            if (faculty.getUniversity() != null && faculty.getUniversity().getId() != null) {
-                University university = universityService.getById(faculty.getUniversity().getId());
-                if (university == null) {
-                    return FacultyOperationResult.failure("Selected university not found");
-                }
-                faculty.setUniversity(university);
+            // Null safety check for university
+            if (faculty.getUniversity() == null) {
+                return FacultyOperationResult.failure("University is required");
             }
+            
+            if (faculty.getUniversity().getId() == null) {
+                return FacultyOperationResult.failure("University ID is required");
+            }
+            
+            // Set university if only ID is provided
+            University university = universityService.getById(faculty.getUniversity().getId());
+            if (university == null) {
+                return FacultyOperationResult.failure("Selected university not found with ID: " + faculty.getUniversity().getId());
+            }
+            faculty.setUniversity(university);
             
             facultyService.add(faculty);
             
@@ -71,14 +78,21 @@ public class FacultyOperationBuilder {
                 return FacultyOperationResult.failure("Faculty not found with ID: " + faculty.getId());
             }
             
-            // Set university if only ID is provided
-            if (faculty.getUniversity() != null && faculty.getUniversity().getId() != null) {
-                University university = universityService.getById(faculty.getUniversity().getId());
-                if (university == null) {
-                    return FacultyOperationResult.failure("Selected university not found");
-                }
-                faculty.setUniversity(university);
+            // Null safety check for university
+            if (faculty.getUniversity() == null) {
+                return FacultyOperationResult.failure("University is required");
             }
+            
+            if (faculty.getUniversity().getId() == null) {
+                return FacultyOperationResult.failure("University ID is required");
+            }
+            
+            // Set university if only ID is provided
+            University university = universityService.getById(faculty.getUniversity().getId());
+            if (university == null) {
+                return FacultyOperationResult.failure("Selected university not found with ID: " + faculty.getUniversity().getId());
+            }
+            faculty.setUniversity(university);
             
             facultyService.update(faculty);
             
@@ -154,16 +168,16 @@ public class FacultyOperationBuilder {
     
     private void validateServicesForCRUD() {
         if (facultyService == null) {
-            throw new IllegalStateException("FacultyService is required");
+            throw new IllegalStateException("FacultyService is required for CRUD operations");
         }
         if (universityService == null) {
-            throw new IllegalStateException("UniversityService is required");
+            throw new IllegalStateException("UniversityService is required for CRUD operations");
         }
     }
     
     private void validateServicesForRead() {
         if (facultyService == null) {
-            throw new IllegalStateException("FacultyService is required");
+            throw new IllegalStateException("FacultyService is required for read operations");
         }
     }
     
@@ -172,11 +186,12 @@ public class FacultyOperationBuilder {
             throw new IllegalArgumentException("Faculty object is required");
         }
         if (faculty.getFacultyName() == null || faculty.getFacultyName().trim().isEmpty()) {
-            throw new IllegalArgumentException("Faculty name is required");
+            throw new IllegalArgumentException("Faculty name is required and cannot be empty");
         }
-        if (faculty.getUniversity() == null || faculty.getUniversity().getId() == null) {
-            throw new IllegalArgumentException("University is required");
+        if (faculty.getFacultyName().length() > 100) {
+            throw new IllegalArgumentException("Faculty name cannot exceed 100 characters");
         }
+        // University validation will be done separately for better error messages
     }
     
     private void validateFacultyForUpdate(Faculty faculty) {
@@ -187,11 +202,12 @@ public class FacultyOperationBuilder {
             throw new IllegalArgumentException("Faculty ID is required for update");
         }
         if (faculty.getFacultyName() == null || faculty.getFacultyName().trim().isEmpty()) {
-            throw new IllegalArgumentException("Faculty name is required");
+            throw new IllegalArgumentException("Faculty name is required and cannot be empty");
         }
-        if (faculty.getUniversity() == null || faculty.getUniversity().getId() == null) {
-            throw new IllegalArgumentException("University is required");
+        if (faculty.getFacultyName().length() > 100) {
+            throw new IllegalArgumentException("Faculty name cannot exceed 100 characters");
         }
+        // University validation will be done separately for better error messages
     }
     
     private boolean hasDepartments(Faculty faculty) {

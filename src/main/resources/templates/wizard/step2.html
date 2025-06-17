@@ -53,7 +53,8 @@
     </div>
 </section>
 
-<script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
     $(document).ready(function () {
         $('#questionTable').DataTable({
             pageLength: 10,
@@ -64,6 +65,7 @@
             }
         });
     });
+    /*]]>*/
 </script>
 </body>
 </html>

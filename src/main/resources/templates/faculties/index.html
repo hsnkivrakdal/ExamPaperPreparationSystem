@@ -31,7 +31,7 @@
                         <tr th:each="faculty : ${faculties}">
                             <td th:text="${faculty.id}"></td>
                             <td th:text="${faculty.facultyName}"></td>
-                            <td th:text="${faculty.university.universityName}"></td>
+                            <td th:text="${faculty.university != null ? faculty.university.universityName : 'N/A'}"></td>
                             <td>
                                 <a class="btn btn-warning btn-sm" th:href="@{'/faculties/edit/' + ${faculty.id}}">
                                     <i class="fas fa-edit"></i> Edit
@@ -48,11 +48,12 @@
         </div>
     </div>
 </section>
-<script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
     $(document).ready(function () {
         $('#facultiesTable').DataTable({
             "pageLength": 25,
-            "order": [[ 1, "asc" ]],
+            "order": [[ 1, 'asc' ]],
             "language": {
                 "search": "Search Faculties:",
                 "lengthMenu": "Show _MENU_ faculties per page",
@@ -60,6 +61,7 @@
             }
         });
     });
+    /*]]>*/
 </script>
 </body>
 </html> 
